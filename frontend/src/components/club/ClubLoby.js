@@ -1,14 +1,14 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.css';
 
-const ClubInfo = ()=>{
-
+const ClubLoby = ()=>{
+    
 
     return(
         <>
-            <p>ClubInfo</p>
+            <p>ClubLoby</p>
         </>
     )
 }
 
-export default ClubInfo;
+export default ClubLoby;

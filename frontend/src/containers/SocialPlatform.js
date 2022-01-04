@@ -1,7 +1,6 @@
 import React, { useState, useRef} from 'react';
 import AuthPage from './AuthPage';
-import ClubLoby from './ClubLoby';
-
+import ClubPlatform from './ClubPlatform';
 const SocialPlatform = ()=>{
 
     const [isLogin, setLogin] = useState(false)
@@ -10,11 +9,14 @@ const SocialPlatform = ()=>{
     const loginCheck = ()=>{
         setLogin(()=> true)
     }
+    const logOut = ()=>{
+        setLogin(()=> false)
+    }
 
     return(
         <div>
             {isLogin
-                ?<ClubLoby/>
+                ?<ClubPlatform logOut = {logOut}/>
                 :<AuthPage loginCheck = {loginCheck}/>
             }
         </div>
