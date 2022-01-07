@@ -1,0 +1,93 @@
+type Query {
+  user(userName: String!, password: String!): LoginData!
+  clubs: [Club!] #user search all clubs
+  club(name:String!): Club #TODO:Privacy
+}
+
+type Mutation{
+  createUser(userName:String!, password:String!, nickname:String!, email:String!): LoginData!
+  createClub(name:String!, host:String!, invitation:String!, introduction:String!, time:String): requestClubData!
+  #host should be userName
+  #note: host will be automatically set one of the member in club
+  joinClub(name:String!, userName:String!, invitation:String!): requestClubData!
+  #verification: invitation
+  #update user's clubs
+}
+type LoginData {
+  status: Status!,
+  userData: User
+  # if login fails, userData can be none
+}
+type requestClubData{
+  status: Status!,
+  clubData: Club  #if failed, can be empty
+}
+enum Status {
+  SUCCESS
+  USER_NOT_FOUND
+  USER_ALREADY_EXISTED
+  INVALID_PASSWORD
+  EMAIL_ALREADY_EXISTED
+  CLUB_ALREADY_EXISTED
+  CLUB_NOT_FOUND
+  MEMBER_ALREADY_EXISTED
+  HOST_NOT_FOUND
+  VERIFICATION_FAILED
+}
+type User {
+  userName: String!
+  password: String!
+  nickname: String!,
+  email: String!,
+  clubs: [String!],  #not return Club to avoid infinite loop
+
+}
+type Club {
+  name: String!
+  host: User!
+  introduction: String!
+  invitation: String!  #前端設定
+  time: String!  #社課時間
+  member: [Member!]
+}
+type Member{
+  user:User!
+  identity: Boolean!
+}
+
+
+# type Mutation {
+#   createChatBox(name1: String, name2: String): ChatBox!
+#   createMessage(from: String, to: String, message: String): Message!
+# }
+# type Query {
+#   chatBox(name1: String, name2: String): ChatBox!
+#   messages: [Message!]
+#   users(query: String): [User!]
+# }
+# # subscribe to chatbox messages 
+# type Subscription {
+#   message(name1: String, name2: String): MessageSubscriptionPayload!
+# }
+# type MessageSubscriptionPayload {
+#   mutation: MutationType!
+#   data: Message!
+# }
+# enum MutationType{
+#   CREATED
+# }
+# type ChatBox {
+#   id: ID!
+#   name: String!
+#   messages: [Message!]
+# }
+# type Message {
+#   id: ID!
+#   sender: User!
+#   body: String!
+# }
+# type User {
+#   id: ID!
+#   name: String!
+# }
+
