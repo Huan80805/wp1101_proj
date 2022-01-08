@@ -14,7 +14,7 @@ type Query {
   #TODO:Privacy of Club member
   #clubs: search all clubs
   #club: search a club by it's name
-  #note that duplicate clubName is rejected when creating
+  #note that duplicate clubName is rejected when creating(handled already)
   clubs: [Club!] 
   club(name:String!): Club
   event(clubName: String!,name:String!): Event
@@ -83,7 +83,7 @@ type Mutation{
 }
 #---------note---------
 #User: private user data
-#publicUser: public user data
+#publicUser: public user data (nickname, userName)
 #clubs: store as [clubNames] (to avoid infinite loop)
 type User {
   userName: String!
