@@ -3,6 +3,7 @@ import * as db from './db';
 import Query from './resolvers/Query';
 import Mutation from './resolvers/Mutation';
 import Club from './resolvers/Club';
+import Event from './resolvers/Event';
 // import Subscription from './resolvers/Subscription';
 // import ChatBox from './resolvers/ChatBox';
 // import Message from './resolvers/Message';
@@ -16,6 +17,7 @@ const server = new GraphQLServer({
     Query,
     Mutation,
     Club,
+    Event,
     // Subscription,
     // Message,
     // ChatBox,

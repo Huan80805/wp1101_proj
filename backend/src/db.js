@@ -7,7 +7,7 @@ const UserSchema = new Schema({
   nickname: { type: String, required: true },
   // departmentLevel: { type: String, required: true },
   email: { type: String, required: true },
-  clubs: [{type: String}],
+  clubs: [{ type: String, required: true }],
 });
 
 const ClubSchema = new Schema({
@@ -16,14 +16,27 @@ const ClubSchema = new Schema({
   introduction: { type: String, required: true },
   invitation: { type: String, required: true },
   time: { type: String, required: true },
-  member: [{user:{ type: mongoose.Types.ObjectId, ref: "User"}, 
+  members: [{user:{ type: mongoose.Types.ObjectId, ref: "User"}, 
             identity:{type:Boolean, required:true}}], 
             // true:administrator, false:normal member
+  events: [{ type: mongoose.Types.ObjectId, ref: "Event"}],
+});
+const EventSchema = new Schema({
+  name: { type: String, required: true },
+  time: { type: String, required: true },
+  location: { type:String, required: true},
+  introduction: { type: String, required: true },
+  host: { type: String, required: true},
+  active: {type: Boolean, required: true},
+  members: [{user:{ type: mongoose.Types.ObjectId, ref: "User"}, 
+            identity:{type:Boolean, required:true}}], 
+            // true:host, false:normal member
 });
 
 const UserModel = mongoose.model("User", UserSchema);
 const ClubModel = mongoose.model("Club", ClubSchema);
-export {UserModel, ClubModel}
+const EventModel = mongoose.model("Event", EventSchema)
+export {UserModel, ClubModel, EventModel}
 
 // const UserSchema = new Schema({
 //   name: { type: String, required: true },

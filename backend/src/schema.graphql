@@ -1,17 +1,48 @@
+#TODO(1/8)
+#Edit invitation
+#Edit identity
+#Activity
 type Query {
   user(userName: String!, password: String!): LoginData!
   clubs: [Club!] #user search all clubs
   club(name:String!): Club #TODO:Privacy
+  events: [Event!]  #user search all events
+  event(name:String!): Event
 }
 
 type Mutation{
-  createUser(userName:String!, password:String!, nickname:String!, email:String!): LoginData!
-  createClub(name:String!, host:String!, invitation:String!, introduction:String!, time:String): requestClubData!
+  createUser(
+    userName:String!, 
+    password:String!, 
+    nickname:String!,
+    email:String!): LoginData!
+  createClub(name:String!, 
+    host:String!,
+    invitation:String!,
+    introduction:String!,
+     time:String): requestClubData!
   #host should be userName
   #note: host will be automatically set one of the member in club
-  joinClub(name:String!, userName:String!, invitation:String!): requestClubData!
+  joinClub(
+    name:String!, 
+    userName:String!, 
+    invitation:String!): requestClubData!
   #verification: invitation
   #update user's clubs
+  createEvent(
+    clubName:String!,
+    name:String!,
+    time:String!,
+    location:String!,
+    introduction:String!,
+    host:String!,
+    active: Boolean!):requestEventData!
+  #host should be userName
+  #note: host will be automatically set one of the member in event
+  joinEvent(
+    name:String!,
+    clubName: String!,
+    userName:String!): requestEventData!
 }
 type LoginData {
   status: Status!,
@@ -21,6 +52,10 @@ type LoginData {
 type requestClubData{
   status: Status!,
   clubData: Club  #if failed, can be empty
+}
+type requestEventData{
+  status: Status!,
+  eventData: Event  #if failed, can be empty
 }
 enum Status {
   SUCCESS
@@ -33,26 +68,38 @@ enum Status {
   MEMBER_ALREADY_EXISTED
   HOST_NOT_FOUND
   VERIFICATION_FAILED
+  EVENT_NOT_FOUND
+  EVENT_ALREADY_EXISTED
 }
 type User {
   userName: String!
   password: String!
   nickname: String!,
   email: String!,
-  clubs: [String!],  #not return Club to avoid infinite loop
-
+  clubs: [String!],  #to avoid infinite loop
 }
 type Club {
   name: String!
-  host: User!
+  host: String!
   introduction: String!
   invitation: String!  #前端設定
   time: String!  #社課時間
-  member: [Member!]
+  members: [Member!]!
+  events: [Event!]
+}
+
+type Event{
+  name:String!
+  time:String!
+  location:String!
+  introduction:String!
+  host:String!
+  members:[Member!]!
+  active: Boolean!  #true:active
 }
 type Member{
   user:User!
-  identity: Boolean!
+  identity: Boolean! #true: host, false:normal member
 }
 
 

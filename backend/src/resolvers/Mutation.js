@@ -12,6 +12,7 @@ const Mutation = {
       clubs:[]
     });
     await newUser.save()
+    console.log("user created: ",userName)
     return {status: "SUCCESS", userData: newUser}
   },
   async createClub(parent, {name, host, invitation, introduction, time}, {db, pubsub}, info){
@@ -19,17 +20,20 @@ const Mutation = {
     if (checkClub) return {status:"CLUB_ALREADY_EXISTED"}
     const initialUser = await db.UserModel.findOne({userName:host})
     if (!initialUser) return {status:"HOST_NOT_FOUND"}
-    const newClub =  new db.ClubModel({
+    const newClub = new db.ClubModel({
       name:name,
       host:host,
       introduction:introduction,
       invitation:invitation,
       time:time,
-      member:[{user:initialUser,identity:true}]
-    });
+      members:[{user:initialUser,identity:true}],
+      events:[]
+    })
     initialUser.clubs.push(name)
     await newClub.save()
     await initialUser.save()
+    console.log("club created: ",name)
+    console.log("clubData:",newClub)
     return {status: "SUCCESS", clubData: newClub}
   },
 
@@ -38,15 +42,52 @@ const Mutation = {
     if (!checkClub) return {status:"CLUB_NOT_FOUND"}
     const checkUser = await db.UserModel.findOne({userName:userName})
     if (!checkUser) return {status:"USER_NOT_FOUND"}
-    if (checkClub.member.includes(checkUser.id)) return {status:"MEMBER_ALREADY_EXISTED"}
+    if (checkClub.members.includes(checkUser.id)) return {status:"MEMBER_ALREADY_EXISTED"}
     // check invitation
     if (checkClub.invitation === invitation){
-      checkClub.member.push({user:checkUser,identity:false})
+      checkClub.members.push({user:checkUser,identity:false})
       checkUser.clubs.push(name)
     }
     await checkClub.save()
     await checkUser.save()
     return {status: "SUCCESS", clubData: checkClub}
+  },
+  async createEvent(parent, {name, clubName, time, location, introduction, host, active}, {db, pubsub}, info){
+    const eventName = clubName + "_" + name
+    const checkEvent = await db.EventModel.findOne({name:eventName})
+    if (checkEvent) return {status:"EVENT_ALREADY_EXISTED"}
+    const initialUser = await db.UserModel.findOne({userName:host})
+    if (!initialUser) return {status:"HOST_NOT_FOUND"}
+    const checkClub = await db.ClubModel.findOne({name:clubName})
+    if (!checkClub) return {status:"CLUB_NOT_FOUND"}
+    const newEvent =  new db.EventModel({
+      name:eventName,
+      time:time,
+      location:location,
+      introduction:introduction,
+      host:host,
+      active:active,
+      members:[{user:initialUser,identity:true}]
+    });
+    checkClub.events.push(newEvent)
+    await newEvent.save()
+    await checkClub.save()
+    console.log("event created: ",name)
+    return {status: "SUCCESS", eventData: newEvent}
+  },
+
+  async joinEvent(parent, {name, userName, clubName}, {db, pubsub}, info){
+    const eventName = clubName + "_" + name
+    const checkClub = await db.ClubModel.findOne({name:clubName})
+    if (!checkClub) return {status:"CLUB_NOT_FOUND"}
+    const checkUser = await db.UserModel.findOne({userName:userName})
+    if (!checkUser) return {status:"USER_NOT_FOUND"}
+    const checkEvent = await db.EventModel.findOne({name:eventName})
+    if (!checkEvent) return {status:"EVENT_NOT_FOUND"}
+    if (checkEvent.members.includes(checkUser.id)) return {status:"MEMBER_ALREADY_EXISTED"}
+    checkEvent.members.push({user:checkUser,identity:false})
+    await checkEvent.save()
+    return {status: "SUCCESS", eventData: checkEvent}
   }
   
 }

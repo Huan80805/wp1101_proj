@@ -3,7 +3,7 @@ import { makeName } from "./utility";
 const Query = {
   async user(parent, {userName,password}, { db }, info) {
     //check log in
-    const user = await db.UserModel.findOne({userName:userName, password:password})
+    const user = await db.UserModel.findOne({userName:userName})
     if (!user) return {status:"USER_NOT_FOUND"}
     else if (user.password === password) return {status:"SUCCESS", userData: user}
     // TODO: add personal club information
