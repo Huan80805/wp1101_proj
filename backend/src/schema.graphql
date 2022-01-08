@@ -15,34 +15,56 @@ type Mutation{
     password:String!, 
     nickname:String!,
     email:String!): LoginData!
-  createClub(name:String!, 
+  #---------note---------
+  #host should be userName
+  #host will be automatically set one of the members in club
+  createClub(
+    name:String!, 
     host:String!,
     invitation:String!,
     introduction:String!,
-     time:String): requestClubData!
-  #host should be userName
-  #note: host will be automatically set one of the member in club
+    time:String): requestClubData!
+  #---------note---------
+  #must send invitation code to verify
+  #user's attended clubs will be updated at the same time
   joinClub(
     name:String!, 
     userName:String!, 
     invitation:String!): requestClubData!
-  #verification: invitation
-  #update user's clubs
+  #---------note---------
+  #host should be userName
+  #host will be automatically set one of the members in  event
+  #args.name is the event name
+  #must specify clubName under which the event is created 
   createEvent(
     clubName:String!,
-    name:String!,
+    name:String!, 
     time:String!,
     location:String!,
     introduction:String!,
     host:String!,
     active: Boolean!):requestEventData!
-  #host should be userName
-  #note: host will be automatically set one of the member in event
   joinEvent(
     name:String!,
     clubName: String!,
     userName:String!): requestEventData!
+  #---------note---------
+  #used for club's chatRoom
+  #sender should be userName
+  #note that the return sender in MessageData will be nickName
+  #name: eventname
+  createClubMessage(
+    clubName:String!,
+    sender:String!  
+    body:String!): requestMessageData!
+  #used for event's chatRoom
+  createEventMessage(
+    clubName:String!
+    name:String!,
+    sender:String!  
+    body:String!): requestMessageData!
 }
+
 type LoginData {
   status: Status!,
   userData: User
@@ -55,6 +77,11 @@ type requestClubData{
 type requestEventData{
   status: Status!,
   eventData: Event  #if failed, can be empty
+}
+
+type requestMessageData{
+  status: Status!,
+  messageData: Message
 }
 enum Status {
   SUCCESS
@@ -75,7 +102,7 @@ type User {
   password: String!
   nickname: String!,
   email: String!,
-  clubs: [String!],  #to avoid infinite loop
+  clubs: [String!],  # Store as [clubNames] to avoid infinite loop
 }
 type Club {
   name: String!
@@ -85,6 +112,7 @@ type Club {
   time: String!  #社課時間
   members: [Member!]!
   events: [Event!]
+  chatRoom: [Message!]
 }
 
 type Event{
@@ -95,6 +123,16 @@ type Event{
   host:String!
   members:[Member!]!
   active: Boolean!  #true:active
+  chatRoom: [Message!]
+}
+
+type Message {
+  sender: publicUser!   #to avoid sending password
+  body: String!
+}
+type publicUser{
+  nickname: String!
+  userName: String!
 }
 type Member{
   user:User!

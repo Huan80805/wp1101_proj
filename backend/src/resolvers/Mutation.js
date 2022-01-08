@@ -27,13 +27,13 @@ const Mutation = {
       invitation:invitation,
       time:time,
       members:[{user:initialUser,identity:true}],
-      events:[]
+      events:[],
+      chatRoom:[]
     })
     initialUser.clubs.push(name)
     await newClub.save()
     await initialUser.save()
     console.log("club created: ",name)
-    console.log("clubData:",newClub)
     return {status: "SUCCESS", clubData: newClub}
   },
 
@@ -67,7 +67,8 @@ const Mutation = {
       introduction:introduction,
       host:host,
       active:active,
-      members:[{user:initialUser,identity:true}]
+      members:[{user:initialUser,identity:true}],
+      chatRoom:[]
     });
     checkClub.events.push(newEvent)
     await newEvent.save()
@@ -88,7 +89,40 @@ const Mutation = {
     checkEvent.members.push({user:checkUser,identity:false})
     await checkEvent.save()
     return {status: "SUCCESS", eventData: checkEvent}
-  }
+  },
+
+  async createClubMessage(parent, {clubName, sender, body}, {db, pubsub}, info){
+    const checkClub = await db.ClubModel.findOne({name:clubName})
+    if (!checkClub) return {status:"CLUB_NOT_FOUND"}
+    const checkSender = await db.UserModel.findOne({userName:sender})
+    if (!checkSender) return {status:"USER_NOT_FOUND"}
+    const newMessage =  new db.MessageModel({
+      sender: checkSender,
+      body: body
+    });
+    checkClub.chatRoom.push(newMessage)
+    await checkClub.save()
+    await newMessage.save()
+    console.log("message created: ",body)
+    return {status: "SUCCESS", messageData: newMessage}
+  },
+
+  async createEventMessage(parent, {clubName,name, sender, body}, {db, pubsub}, info){
+    const eventName = clubName + "_" + name
+    const checkEvent = await db.EventModel.findOne({name:eventName})
+    if (!checkEvent) return {status:"EVENT_NOT_FOUND"}
+    const checkSender = await db.UserModel.findOne({userName:sender})
+    if (!checkSender) return {status:"USER_NOT_FOUND"}
+    const newMessage =  new db.MessageModel({
+      sender: checkSender,
+      body: body
+    });
+    checkEvent.chatRoom.push(newMessage)
+    await checkEvent.save()
+    await newMessage.save()
+    console.log("message created: ",body)
+    return {status: "SUCCESS", messageData: newMessage}
+  },
   
 }
 

@@ -10,11 +10,19 @@ const Club = {
       
     },
     events(parent, args, { db }, info) {
-        console.log(parent.members[0])
         return Promise.all(
           parent.events.map(
             (eventId) => {
                 return db.EventModel.findById(eventId)
+            })
+        )
+        
+      },
+    chatRoom(parent, args, { db }, info) {
+        return Promise.all(
+          parent.chatRoom.map(
+            (mId) => {
+                return db.MessageModel.findById(mId)
             })
         )
         

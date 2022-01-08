@@ -8,5 +8,14 @@ const Event = {
       )
       
     },
+    chatRoom(parent, args, { db }, info) {
+      return Promise.all(
+        parent.chatRoom.map(
+          (mId) => {
+              return db.MessageModel.findById(mId)
+          })
+      )
+      
+    },
 };
 export default Event  

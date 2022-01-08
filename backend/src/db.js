@@ -20,6 +20,7 @@ const ClubSchema = new Schema({
             identity:{type:Boolean, required:true}}], 
             // true:administrator, false:normal member
   events: [{ type: mongoose.Types.ObjectId, ref: "Event"}],
+  chatRoom: [{ type: mongoose.Types.ObjectId, ref: "Message"}]
 });
 const EventSchema = new Schema({
   name: { type: String, required: true },
@@ -31,29 +32,17 @@ const EventSchema = new Schema({
   members: [{user:{ type: mongoose.Types.ObjectId, ref: "User"}, 
             identity:{type:Boolean, required:true}}], 
             // true:host, false:normal member
+  chatRoom: [{ type: mongoose.Types.ObjectId, ref: "Message"}]
+});
+
+const MessageSchema = new Schema({
+  sender: { type: mongoose.Types.ObjectId, ref: "User" },
+  body: { type: String, required: true },
 });
 
 const UserModel = mongoose.model("User", UserSchema);
 const ClubModel = mongoose.model("Club", ClubSchema);
 const EventModel = mongoose.model("Event", EventSchema)
-export {UserModel, ClubModel, EventModel}
+const MessageModel = mongoose.model("Message", MessageSchema)
+export {UserModel, ClubModel, EventModel, MessageModel}
 
-// const UserSchema = new Schema({
-//   name: { type: String, required: true },
-// });
-// const ChatBoxSchema = new Schema({
-//   name: { type: String, required: true },
-//   messages: [{ type: mongoose.Types.ObjectId, ref: "Message" }],
-// });
-// const MessageSchema = new Schema({
-//   sender: { type: mongoose.Types.ObjectId, ref: "User" },
-//   body: { type: String, required: true },
-// });
-// const UserSchema = new Schema({
-//   name: { type: String, required: true },
-// });
-// const UserModel = mongoose.model("User", UserSchema);
-// const ChatBoxModel = mongoose.model("ChatBox", ChatBoxSchema);
-// const MessageModel = mongoose.model("Message", MessageSchema);
-
-// export {UserModel, ChatBoxModel, MessageModel}
