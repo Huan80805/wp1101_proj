@@ -1,5 +1,3 @@
-import { makeName } from "./utility";
-
 const Query = {
   async user(parent, {userName,password}, { db }, info) {
     //check log in
