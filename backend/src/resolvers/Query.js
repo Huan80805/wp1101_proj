@@ -18,6 +18,11 @@ const Query = {
     //query one club
     return db.ClubModel.findOne({name:name})
   },
+  async event(parent, {clubName, name}, { db }, info) {
+    //query one event
+    const eventName = clubName + "_" + name
+    return db.EventModel.findOne({name:eventName})
+  },
 };
 
 // const Query = {

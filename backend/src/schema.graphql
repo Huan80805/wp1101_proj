@@ -6,8 +6,7 @@ type Query {
   user(userName: String!, password: String!): LoginData!
   clubs: [Club!] #user search all clubs
   club(name:String!): Club #TODO:Privacy
-  events: [Event!]  #user search all events
-  event(name:String!): Event
+  event(clubName: String!,name:String!): Event
 }
 
 type Mutation{
