@@ -6,7 +6,6 @@ import Club from './resolvers/Club';
 import Event from './resolvers/Event';
 import Message from './resolvers/Message';
 // import Subscription from './resolvers/Subscription';
-// import ChatBox from './resolvers/ChatBox';
 import mongo from './mongo'
 
 const pubsub = new PubSub();
@@ -20,7 +19,6 @@ const server = new GraphQLServer({
     Event,
     Message,
     // Subscription,
-    // ChatBox,
   },
   playground: { version: '1.7.25' },
   context: {

@@ -1,15 +1,29 @@
 #TODO(1/8)
 #Edit invitation
 #Edit identity
-#Activity
+#Subscription
+
+
 type Query {
+  #---------note---------
+  #TODO: encrypt password 
+  #LoginData:{status, user's profile} plz ref LoginData
+  #Sign In
   user(userName: String!, password: String!): LoginData!
-  clubs: [Club!] #user search all clubs
-  club(name:String!): Club #TODO:Privacy
+  #---------note---------
+  #TODO:Privacy of Club member
+  #clubs: search all clubs
+  #club: search a club by it's name
+  #note that duplicate clubName is rejected when creating
+  clubs: [Club!] 
+  club(name:String!): Club
   event(clubName: String!,name:String!): Event
 }
 
 type Mutation{
+  #---------note---------
+  #TODO: encrypt password
+  #Sign Up
   createUser(
     userName:String!, 
     password:String!, 
@@ -18,6 +32,7 @@ type Mutation{
   #---------note---------
   #host should be userName
   #host will be automatically set one of the members in club
+  #requestClubData:{status, club's info} plz ref requestClubData
   createClub(
     name:String!, 
     host:String!,
@@ -26,7 +41,7 @@ type Mutation{
     time:String): requestClubData!
   #---------note---------
   #must send invitation code to verify
-  #user's attended clubs will be updated at the same time
+  #user's attended clubs should be updated at the same time
   joinClub(
     name:String!, 
     userName:String!, 
@@ -35,7 +50,8 @@ type Mutation{
   #host should be userName
   #host will be automatically set one of the members in  event
   #args.name is the event name
-  #must specify clubName under which the event is created 
+  #must specify clubName under which the event is created
+  #requestEventData:{status, Event's info} 
   createEvent(
     clubName:String!,
     name:String!, 
@@ -53,6 +69,7 @@ type Mutation{
   #sender should be userName
   #note that the return sender in MessageData will be nickName
   #name: eventname
+  #requestMessageData:{status, Message's info} 
   createClubMessage(
     clubName:String!,
     sender:String!  
@@ -64,21 +81,66 @@ type Mutation{
     sender:String!  
     body:String!): requestMessageData!
 }
+#---------note---------
+#User: private user data
+#publicUser: public user data
+#clubs: store as [clubNames] (to avoid infinite loop)
+type User {
+  userName: String!
+  password: String!
+  nickname: String!,
+  email: String!,
+  clubs: [String!],  
+}
+type publicUser{
+  nickname: String!
+  userName: String!
+}
 
+type Club {
+  name: String!
+  host: String!
+  introduction: String!
+  invitation: String!  #前端設定
+  time: String!  #社課時間
+  members: [Member!]!
+  events: [Event!]
+  chatRoom: [Message!]
+}
+type Event{
+  name:String!
+  time:String!
+  location:String!
+  introduction:String!
+  host:String!
+  members:[Member!]!
+  active: Boolean!  #true:active
+  chatRoom: [Message!]
+}
+type Message {
+  sender: publicUser!
+  body: String!
+}
+type Member{
+  user:User!
+  identity: Boolean! #true: host, false:normal member
+}
+
+#---------note---------
+# if log in/up fails, userData is null
+# check Status to see if log in/up succeeds
 type LoginData {
   status: Status!,
   userData: User
-  # if login fails, userData can be none
 }
 type requestClubData{
   status: Status!,
-  clubData: Club  #if failed, can be empty
+  clubData: Club  
 }
 type requestEventData{
   status: Status!,
-  eventData: Event  #if failed, can be empty
+  eventData: Event
 }
-
 type requestMessageData{
   status: Status!,
   messageData: Message
@@ -96,47 +158,6 @@ enum Status {
   VERIFICATION_FAILED
   EVENT_NOT_FOUND
   EVENT_ALREADY_EXISTED
-}
-type User {
-  userName: String!
-  password: String!
-  nickname: String!,
-  email: String!,
-  clubs: [String!],  # Store as [clubNames] to avoid infinite loop
-}
-type Club {
-  name: String!
-  host: String!
-  introduction: String!
-  invitation: String!  #前端設定
-  time: String!  #社課時間
-  members: [Member!]!
-  events: [Event!]
-  chatRoom: [Message!]
-}
-
-type Event{
-  name:String!
-  time:String!
-  location:String!
-  introduction:String!
-  host:String!
-  members:[Member!]!
-  active: Boolean!  #true:active
-  chatRoom: [Message!]
-}
-
-type Message {
-  sender: publicUser!   #to avoid sending password
-  body: String!
-}
-type publicUser{
-  nickname: String!
-  userName: String!
-}
-type Member{
-  user:User!
-  identity: Boolean! #true: host, false:normal member
 }
 
 
