@@ -6,23 +6,23 @@ import { useMutation } from "@apollo/client";
 import { CREATE_USER_MUTATION } from '../../graphql/mutations';
 const RegistPage = ({closeRegistPage}) =>{
 
-    // const [createUser] = useMutation(CREATE_USER_MUTATION);
+    const [createUser] = useMutation(CREATE_USER_MUTATION);
     const [userName, setUserName] = useState('')
     const [nickName, setNickName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const submitOnClick = ()=>{
-        // createUser({
-        //     variables: {
-        //       input: {
-        //         userName:userName,
-        //         nickName:nickName,
-        //         email: email,
-        //         password:password,
-        //       },
-        //     }
-        //   });
+        createUser({
+            variables: {
+              input: {
+                userName:userName,
+                nickName:nickName,
+                email: email,
+                password:password,
+              },
+            }
+          });
         closeRegistPage();
     }
 
