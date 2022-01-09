@@ -7,7 +7,11 @@ const Verification = ({sendOnClick, verifyOnClick, sendClose, isSend}) =>{
     
     
     return(
-        <Form>
+        <div className='App'>
+            <div className='App-title'>
+                <h1 >Find Your PassWord</h1>
+            </div>
+            <Form>
                 <Form.Item label="Username">
                 <Input />
                 </Form.Item>
@@ -30,7 +34,9 @@ const Verification = ({sendOnClick, verifyOnClick, sendClose, isSend}) =>{
                     </Button>
                 }
                 </Form.Item>
-    </Form>
+            </Form>
+        </div>
+        
     )
     
 

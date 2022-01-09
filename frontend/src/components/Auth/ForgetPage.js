@@ -23,7 +23,6 @@ const Forget = ({closeForgetPage}) =>{
 
     return (
         <>
-            <p>forget PassWord page</p>
             {isVerified
                 ? <ResetPassWord verifyDone = {verifyDone} closeForgetPage = {closeForgetPage}/>
                 : <Verification sendOnClick={sendOnClick} sendClose = {sendClose} verifyOnClick = {verifyOnClick} isSend = {isSend}/>

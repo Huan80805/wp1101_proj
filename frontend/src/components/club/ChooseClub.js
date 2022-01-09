@@ -22,7 +22,6 @@ const ChooseClub = ({chooseClubOnClick})=>{
 
     return(
         <>
-            <p>ChooseClub</p>
             {(!establishClub && !joinClub)&&
                 <ClubMenu estaClubOnClick={estaClubOnClick} joinClubOnClick={joinClubOnClick} chooseClubOnClick={chooseClubOnClick}/>
             }
