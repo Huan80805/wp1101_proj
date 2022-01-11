@@ -1,27 +1,51 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
-import { Button } from 'antd';
-import { CLUBS_QUERY } from '../../graphql/queries';
-import { useQuery } from '@apollo/client';
+import { Button, Input } from 'antd';
+import { CLUBS_QUERY, JOIN_CLUB_MUTATION } from '../../graphql';
+import { useQuery, useMutation } from '@apollo/client';
+import { UserOutlined } from '@ant-design/icons';
 
-const JoinClub = ({backToChooseClub, setClub})=>{
+
+const JoinClub = ({backToChooseClub, setClub, userName})=>{
 
     const {data, loading, error} = useQuery(CLUBS_QUERY)
+    const [joinCLubMutate, {mutateData}] = useMutation(JOIN_CLUB_MUTATION)
+    const [showInvitInput, setShowInput] = useState(false)
+    const [invitInput, setInvitInput] = useState('')
+    const [clubInput, setClubInput] = useState('')
 
-    const chooseThis = (clubName)=>{
-        // modify latter
-        setClub(()=>clubName)
-        // close
-        backToChooseClub()
+    const chooseThis = ()=>{
+        // modify authentication
+        joinCLubMutate({
+            variables: {
+                name:clubInput,
+                userName:userName,
+                invitation:invitInput
+            }
+          })
+        // go into this club
+        setClub(()=>clubInput)
     }
     if(loading) return "Loading...";
     if(error) return <pre>{error.message}</pre>
+    
 
     return(
         <div className='App'>
             <div className='App-title'>
                 <h1 >JoinClub</h1>
             </div>
+            {showInvitInput &&
+                <div>
+                    <Input
+                    placeholder="Plz enter your invit code:"
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    onChange={(e)=>{setInvitInput(()=>e.target.value)}}
+                    />
+                    <Button onClick={chooseThis}>Join!</Button>
+                </div>
+                
+            }
             {data.clubs.length === 0? (
                 <p style={{ color: '#ccc' }}>
                     No Clubs...
@@ -29,7 +53,7 @@ const JoinClub = ({backToChooseClub, setClub})=>{
             ):(
                 data.clubs.map((clubs, i)=>(
                     <p key={i}>
-                        <Button danger  onClick={e=>(chooseThis(e.target.innerHTML))}>{clubs.name}</Button>
+                        <Button danger  onClick={e=>(setClubInput(()=>(e.target.innerHTML)))}>{clubs.name}</Button>
                     </p>
                 ))
             )

@@ -33,6 +33,7 @@ export const CLUB_QUERY = gql`
     club(name:$name){
       name
       host
+      introduction
       members{
         user{
           userName
@@ -44,8 +45,32 @@ export const CLUB_QUERY = gql`
         name
         time
       }
+      invitation
     }
   }
 `;
 
+export const EVENT_QUERY = gql`
+  query event($clubName: String!, $name:String!){
+    event(clubName:$clubName, name:$name){
+      name
+      time
+      location
+      introduction
+      host
+      members{
+        user{
+          userName
+        }
+      }
+      active
+      chatRoom{
+        sender{
+          nickname
+        }
+        body
+      }
+    }
+  }
+`;
 

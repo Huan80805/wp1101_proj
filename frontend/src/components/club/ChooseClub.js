@@ -34,7 +34,7 @@ const ChooseClub = ( {userName, data, setClub})=>{
                  userName={userName} setClub={setClub}/>
             }
             {joinClub &&
-                <JoinClub backToChooseClub={backToChooseClub}
+                <JoinClub userName ={userName} backToChooseClub={backToChooseClub}
                 setClub={setClub} 
                 />
             }

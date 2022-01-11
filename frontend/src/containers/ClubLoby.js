@@ -14,9 +14,9 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
     }
 
     const backToLoby = ()=>{
-        setAddActMode(()=>false)
-        alert("q")
-        setActName(()=>'')
+         console.log("q")
+         setAddActMode(()=>false)
+            setActName(()=>'')
         
     }
 
@@ -27,7 +27,7 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                 reChooseClub = {reChooseClub} setActName={setActName}/>
             }
             {(actName != '') &&
-                <Act userName={userName} club={club} backToLoby={backToLoby} />
+                <Act userName={userName} club={club} actName ={actName} backToLoby={backToLoby} />
             }
             {addActMode &&
                 <AddAct userName={userName} club={club} backToLoby={backToLoby} />

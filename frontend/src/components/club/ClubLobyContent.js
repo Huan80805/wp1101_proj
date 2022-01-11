@@ -34,15 +34,16 @@ const ClubLobyContent= ({userName, club, reChooseClub, addNewAct, setActName})=>
             <div className='App-title'>
                 <h1 >{club} Loby</h1>
             </div>
-            {
-                data.club.events.map((events, i)=>(
-                    <Button danger onClick={chooseThisEvent}>{events.name}</Button>
-                ))
+            {data.club.events.length === 0?
+                <p>No event now...</p>
+                :(data.club.events.map((event, i)=>(
+                    <Button danger key={event.name} onClick={e=>(chooseThisEvent(e.target.innerHTML))}>{event.name}</Button>
+                )))
             }
             
             {showInfo 
                 ?<>
-                    <ClubInfo/>
+                    <ClubInfo clubData = {data}/>
                     <button onClick={closeClubInfo}>close club info</button>
                 </>
                 :<button onClick={showClubInfo}>club info</button>

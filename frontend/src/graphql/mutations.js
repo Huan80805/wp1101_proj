@@ -50,3 +50,20 @@ export const CREATE_EVENT_MUTATION = gql`
     }
     }
 `;
+
+export const JOIN_EVENT_MUTATION = gql`
+    mutation joinEvent($name:String!, $clubName: String!,
+    $userName:String!){
+        joinEvent(name:$name, clubName:$clubName, userName:$userName){
+            status
+        }
+    }
+`;
+
+export const JOIN_CLUB_MUTATION = gql`
+    mutation joinClub($name:String!, $userName:String!, $invitation:String!){
+        joinClub(name:$name, userName:$userName, invitation:$invitation){
+            status
+        }
+    }
+`;
