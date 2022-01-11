@@ -1,12 +1,14 @@
 import React, { useState} from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
+import { Button } from 'antd';
 
-const Act = ()=>{
+const Act = ({userName, club, backToLoby})=>{
 
 
     return(
         <>
             <p>Act</p>
+            <Button conClick={backToLoby}>backToLoby</Button>
         </>
     )
 }

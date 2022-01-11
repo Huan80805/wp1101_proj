@@ -1,28 +1,36 @@
 import React, { useState} from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import AddAct from '../components/activities/AddAct';
 import Act from '../components/activities/Act';
 import ClubLobyContent from '../components/club/ClubLobyContent';
 
-const ClubLoby = ({reChooseClub})=>{
+const ClubLoby = ({reChooseClub, club, userName})=>{
 
-    const [actMode, setActInfoMode] = useState(false)
+    const [actName, setActName] = useState('')
     const [addActMode, setAddActMode] = useState(false)
 
     const addNewAct = ()=>{
-            setAddActMode(()=>true)
+        setAddActMode(()=>true)
+    }
+
+    const backToLoby = ()=>{
+        setAddActMode(()=>false)
+        alert("q")
+        setActName(()=>'')
+        
     }
 
     return(
         <>
-            { (!actMode && !addActMode)&&
-                <ClubLobyContent addNewAct={addNewAct} reChooseClub = {reChooseClub}/>
+            { ((actName == '') && !addActMode)&&
+                <ClubLobyContent userName = {userName} club ={club} addNewAct={addNewAct} 
+                reChooseClub = {reChooseClub} setActName={setActName}/>
             }
-            {actMode &&
-                <Act/>
+            {(actName != '') &&
+                <Act userName={userName} club={club} backToLoby={backToLoby} />
             }
             {addActMode &&
-                <AddAct/>
+                <AddAct userName={userName} club={club} backToLoby={backToLoby} />
             }
         </>
     )

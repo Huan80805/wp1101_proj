@@ -1,34 +1,37 @@
 import React, { useState} from 'react';
-import 'antd/dist/antd.css';
-import db from '../../db';
-import { Tag } from 'antd';
+import 'antd/dist/antd.min.css'
+import { Tag, Button } from 'antd';
 
-const ClubMenu = ({chooseClubOnClick, estaClubOnClick, joinClubOnClick})=>{
-    // temp
-    const clubs = db.club;
-
+const ClubMenu = ({estaClubOnClick, joinClubOnClick,
+     data, setClub})=>{
     
+    const chooseThisClub = (name) =>{
+        setClub(()=>name)
+
+    }
+
     return(
         <div className='App'>
             <div className='App-title'>
                 <h1 >Club Menu</h1>
             </div>
-            {clubs.length === 0 ? (
+            {data.user.userData.clubs.length === 0? (
                 <p style={{ color: '#ccc' }}>
-                No messages...
+                    No Clubs
                 </p>
             ):(
-                clubs.map(({name, meetingTime}, i)=>(
-                    <p key = {i}>
-                        <Tag color='blue'  onClick={chooseClubOnClick}>{name}</Tag>{meetingTime}
+                data.user.userData.clubs.map((clubs, i)=>(
+                    <p key={i}>
+                        <Button danger  onClick={e=>(chooseThisClub(e.target.innerHTML))}>{clubs}</Button>
                     </p>
                 ))
             )
-
             }
-            <button onClick={estaClubOnClick}>estaClubOnClick</button>
-            <button onClick={joinClubOnClick}>joinClubOnClick</button>
-        </div>
+                <div>
+                    <Button onClick={estaClubOnClick}>estaClubOnClick</Button>
+                    <Button onClick={joinClubOnClick}>joinClubOnClick</Button>
+                </div>
+            </div>
     )
 }
 

@@ -1,13 +1,15 @@
 import React, { useState} from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import ClubMenu from './ClubMenu';
 import EstablishClub from './EstablishClub';
 import JoinClub from './JoinClub';
 
-const ChooseClub = ({chooseClubOnClick})=>{
+
+const ChooseClub = ( {userName, data, setClub})=>{
+
     const [establishClub, setEstaClub] = useState(false);
     const [joinClub, setJoinClub] = useState(false);
-
+        
     const estaClubOnClick = ()=>{
         setEstaClub(()=>true)
     }
@@ -23,13 +25,18 @@ const ChooseClub = ({chooseClubOnClick})=>{
     return(
         <>
             {(!establishClub && !joinClub)&&
-                <ClubMenu estaClubOnClick={estaClubOnClick} joinClubOnClick={joinClubOnClick} chooseClubOnClick={chooseClubOnClick}/>
+                <ClubMenu estaClubOnClick={estaClubOnClick} 
+                joinClubOnClick={joinClubOnClick} 
+                data={data} setClub={setClub}/>
             }
             {establishClub &&
-                <EstablishClub backToChooseClub={backToChooseClub} chooseClubOnClick={chooseClubOnClick}/>
+                <EstablishClub backToChooseClub={backToChooseClub} 
+                 userName={userName} setClub={setClub}/>
             }
             {joinClub &&
-                <JoinClub backToChooseClub={backToChooseClub} chooseClubOnClick={chooseClubOnClick}/>
+                <JoinClub backToChooseClub={backToChooseClub}
+                setClub={setClub} 
+                />
             }
         </>
     )

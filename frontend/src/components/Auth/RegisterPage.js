@@ -1,28 +1,27 @@
 import React from 'react';
-import 'antd/dist/antd.css';
+import 'antd/dist/antd.min.css'
 import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
-import { useMutation } from "@apollo/client";
-import { CREATE_USER_MUTATION } from '../../graphql/mutations';
+import { CREATE_USER_MUTATION } from '../../graphql';
+import { useMutation } from '@apollo/client';
+
 const RegistPage = ({closeRegistPage}) =>{
 
-    // const [createUser] = useMutation(CREATE_USER_MUTATION);
-    const [userName, setUserName] = useState('')
-    const [nickName, setNickName] = useState('')
-    const [email, setEmail] = useState('')
+    const [createUser] = useMutation(CREATE_USER_MUTATION);
+    const [userName, setUserName] = useState('');
+    const [nickname, setNickName] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
-
+    
     const submitOnClick = ()=>{
-        // createUser({
-        //     variables: {
-        //       input: {
-        //         userName:userName,
-        //         nickName:nickName,
-        //         email: email,
-        //         password:password,
-        //       },
-        //     }
-        //   });
+        createUser({
+            variables: {
+                userName:userName,
+                nickname:nickname,
+                email: email,
+                password:password
+            }
+          });
         closeRegistPage();
     }
 
