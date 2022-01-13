@@ -12,7 +12,7 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
             <div className='App-title'>
                 <h1 >Login</h1>
             </div>
-            <div className='App-input'>
+            <div className='App-loginInput'>
                 <Form name="basic">
                 <Form.Item
                     label="Username"
@@ -33,7 +33,7 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                     span: 16,
                     }}
                 >   
-                <div className='login-option'>
+                <div className='App-options'>
                      <Button type="primary" htmlType="submit" onClick={loginCheck}>
                     Login
                     </Button>

@@ -7,7 +7,7 @@ import { CREATE_EVENT_MUTATION } from '../../graphql';
 
 const AddAct = ({userName, club, backToLoby})=>{
 
-    const [createEvent]=useMutation(CREATE_EVENT_MUTATION)
+    const [createEvent, {data, loading, error}]=useMutation(CREATE_EVENT_MUTATION)
 
     const [eventName, setEventName] = useState('')
     const [eventTime, setEventTime] = useState('')
@@ -15,7 +15,8 @@ const AddAct = ({userName, club, backToLoby})=>{
     const [eventInro, setEventIntro] = useState('')
     const [eventActive, setEventActive] = useState(false)
     
-    const createEventSubmit = ()=>{
+    const createEventSubmit = (e)=>{
+        e.preventDefault();
         createEvent({
             variables: {
                 clubName:club,
@@ -27,9 +28,13 @@ const AddAct = ({userName, club, backToLoby})=>{
                 active:true
             }
           });
+          alert(data.createEvent.status)
           // go back
           backToLoby()
     }
+
+    if(loading) return "Loading...";
+    if(error) return <pre>{error.message}</pre>
 
     return(
         <div className='App'>

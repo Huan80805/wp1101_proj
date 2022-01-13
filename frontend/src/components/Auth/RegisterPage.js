@@ -7,23 +7,29 @@ import { useMutation } from '@apollo/client';
 
 const RegistPage = ({closeRegistPage}) =>{
 
-    const [createUser] = useMutation(CREATE_USER_MUTATION);
+    const [createUser, {data, loading, error}] = useMutation(CREATE_USER_MUTATION);
     const [userName, setUserName] = useState('');
     const [nickname, setNickName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     
-    const submitOnClick = ()=>{
-        createUser({
+    const submitOnClick = (e)=>{
+        e.preventDefault();
+        
+         createUser({
             variables: {
                 userName:userName,
+                password:password,
                 nickname:nickname,
-                email: email,
-                password:password
+                email: email
             }
           });
+        alert(data.createUser.status)
         closeRegistPage();
+        
     }
+    if(loading) return "Loading...";
+    if(error) return <pre>{error.message}</pre>
 
     return (
         <div className='App'>

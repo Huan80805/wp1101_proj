@@ -25,7 +25,7 @@ const ChooseClub = ( {userName, data, setClub})=>{
     return(
         <>
             {(!establishClub && !joinClub)&&
-                <ClubMenu estaClubOnClick={estaClubOnClick} 
+                <ClubMenu userName={userName} estaClubOnClick={estaClubOnClick} 
                 joinClubOnClick={joinClubOnClick} 
                 data={data} setClub={setClub}/>
             }
@@ -34,7 +34,7 @@ const ChooseClub = ( {userName, data, setClub})=>{
                  userName={userName} setClub={setClub}/>
             }
             {joinClub &&
-                <JoinClub userName ={userName} backToChooseClub={backToChooseClub}
+                <JoinClub userName ={userName} userData={data} backToChooseClub={backToChooseClub}
                 setClub={setClub} 
                 />
             }

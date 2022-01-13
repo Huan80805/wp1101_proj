@@ -6,17 +6,17 @@ import { useQuery, useMutation } from '@apollo/client';
 import { UserOutlined } from '@ant-design/icons';
 
 
-const JoinClub = ({backToChooseClub, setClub, userName})=>{
+const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
 
-    const {data, loading, error} = useQuery(CLUBS_QUERY)
-    const [joinCLubMutate, {mutateData}] = useMutation(JOIN_CLUB_MUTATION)
+    let {data, loading, error} = useQuery(CLUBS_QUERY)
+    const [joinCLubMutate] = useMutation(JOIN_CLUB_MUTATION)
     const [showInvitInput, setShowInput] = useState(false)
     const [invitInput, setInvitInput] = useState('')
     const [clubInput, setClubInput] = useState('')
 
-    const chooseThis = ()=>{
+    const sendInvitCode = async ()=>{
         // modify authentication
-        joinCLubMutate({
+        let {data, loading, error} = await joinCLubMutate({
             variables: {
                 name:clubInput,
                 userName:userName,
@@ -24,42 +24,56 @@ const JoinClub = ({backToChooseClub, setClub, userName})=>{
             }
           })
         // go into this club
-        setClub(()=>clubInput)
+        if(data.joinClub.status === 'SUCCESS'){
+            setClub(()=>clubInput)
+        }
+        setShowInput(()=>false)
     }
+    const chooseThis = (e)=>{
+        setClubInput(()=>(e.target.innerHTML))
+        setShowInput(()=>true)
+    }
+
     if(loading) return "Loading...";
     if(error) return <pre>{error.message}</pre>
-    
 
     return(
         <div className='App'>
             <div className='App-title'>
                 <h1 >JoinClub</h1>
             </div>
-            {showInvitInput &&
+            <div className='App-menu'>
+                {data.clubs.length === 0? (
+                <p style={{ color: '#ccc' }}>
+                    No Clubs...
+                </p>
+                ):(
+                    data.clubs.map((clubs, i)=>(
+                        (!userData.user.userData.clubs.some(club=>club === clubs.name)) &&
+                        <p key={i}>
+                            <Button danger  onClick={e=>(chooseThis(e))}>{clubs.name}</Button>
+                        </p>
+                    ))
+                )
+            }
+            </div>
+            <div className='App-joinClub'>
+                {showInvitInput &&
                 <div>
                     <Input
                     placeholder="Plz enter your invit code:"
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     onChange={(e)=>{setInvitInput(()=>e.target.value)}}
                     />
-                    <Button onClick={chooseThis}>Join!</Button>
+                    <Button onClick={sendInvitCode}>Join {clubInput}!</Button>
                 </div>
                 
-            }
-            {data.clubs.length === 0? (
-                <p style={{ color: '#ccc' }}>
-                    No Clubs...
-                </p>
-            ):(
-                data.clubs.map((clubs, i)=>(
-                    <p key={i}>
-                        <Button danger  onClick={e=>(setClubInput(()=>(e.target.innerHTML)))}>{clubs.name}</Button>
-                    </p>
-                ))
-            )
-            }
-            <button onClick={backToChooseClub}>backToChooseClub</button>
-            <button onClick={chooseThis}>Choose this club</button>
+                }
+            </div>
+            
+            <div className='App-options'>
+                <Button onClick={backToChooseClub}>backToChooseClub</Button>
+            </div>
         </div>
     )
 }

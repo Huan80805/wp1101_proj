@@ -6,31 +6,29 @@ import { USER_QUERY } from '../graphql';
 
 const SocialPlatform = ()=>{
 
-    const [runQuery, { loading, error, data }] = useLazyQuery(USER_QUERY)    
+    const [runQuery] = useLazyQuery(USER_QUERY)    
     
     const [isLogin, setLogin] = useState(false)
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
-
-    if(loading) return "Loading...";
-    if(error) return <pre>{error.message}</pre>
-    
+    const [userData, setUserData] = useState()
 
     // async await problem
-    const loginCheck =  ()=>{
-         runQuery({
+    const loginCheck =  async (e)=>{
+        e.preventDefault();
+        const {data} = await runQuery( {
             variables:{
                 userName:userName,
                 password:password
             }
         })
-        if(!loading){
-            if(data.user.status === 'SUCCESS'){
-            setLogin(()=> true)
-            }
-            else{
-            alert(data.user.status)
-            }
+
+        setUserData(()=>data)
+        if(data.user.status === 'SUCCESS'){
+        setLogin(()=> true)
+        }
+        else{
+        alert(data.user.status)
         }
     }
     // need async await
@@ -43,7 +41,7 @@ const SocialPlatform = ()=>{
     return(
         <div>
             {isLogin
-                ?<ClubPlatform logOut = {logOut} userName={userName} data={data}/>
+                ?<ClubPlatform logOut = {logOut} userName={userName} data={userData}/>
                 :<AuthPage loginCheck = {loginCheck} setUserName={setUserName}
                  setPassword={setPassword}/>
             }
