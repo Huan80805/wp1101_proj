@@ -1,4 +1,5 @@
 import  mongoose  from "mongoose"
+import { ObjectId } from "mongoose"
 const Mutation = {
   async createUser(parent, {userName, password, nickname, email,}, {db, pubsub}, info){
     const checkUser = await db.UserModel.findOne({userName:userName})
@@ -43,7 +44,13 @@ const Mutation = {
     if (!checkClub) return {status:"CLUB_NOT_FOUND"}
     const checkUser = await db.UserModel.findOne({userName:userName})
     if (!checkUser) return {status:"USER_NOT_FOUND"}
-    if (checkClub.members.includes(checkUser.id)) return {status:"MEMBER_ALREADY_EXISTED"}
+    let check_exist = false
+    checkClub.members.map( ({user, identity}) => {
+      if ((user.toString()===checkUser.id)){
+        check_exist = true
+      }
+    })
+    if (check_exist) return {status:"MEMBER_ALREADY_EXISTED"}
     // check invitation
     if (checkClub.invitation === invitation){
       checkClub.members.push({user:checkUser,identity:false})
@@ -75,6 +82,9 @@ const Mutation = {
     await newEvent.save()
     await checkClub.save()
     console.log("event created: ",name)
+    pubsub.publish(`Club ${clubName}`,{
+      club: {mutation:"CREATED", data:checkClub}
+    })
     return {status: "SUCCESS", eventData: newEvent}
   },
 
@@ -86,9 +96,18 @@ const Mutation = {
     if (!checkUser) return {status:"USER_NOT_FOUND"}
     const checkEvent = await db.EventModel.findOne({name:eventName})
     if (!checkEvent) return {status:"EVENT_NOT_FOUND"}
-    if (checkEvent.members.includes(checkUser.id)) return {status:"MEMBER_ALREADY_EXISTED"}
+    let check_exist = false
+    checkEvent.members.map( ({user, identity}) => {
+      if ((user.toString()===checkUser.id)){
+        check_exist = true
+      }
+    })
+    if (check_exist)return {status:"MEMBER_ALREADY_EXISTED"}
     checkEvent.members.push({user:checkUser,identity:false})
     await checkEvent.save()
+    pubsub.publish(`Club ${clubName}`,{
+      club: {mutation:"CREATED", data:checkClub}
+    })
     return {status: "SUCCESS", eventData: checkEvent}
   },
 
@@ -105,6 +124,9 @@ const Mutation = {
     await checkClub.save()
     await newMessage.save()
     console.log("message created: ",body)
+    pubsub.publish(`Club ${clubName}`,{
+      club: {mutation:"CREATED", data:checkClub}
+    })
     pubsub.publish(`Message ${clubName}`,{
       clubMessage: {mutation:"CREATED", data:newMessage}
     })
@@ -113,6 +135,8 @@ const Mutation = {
 
   async createEventMessage(parent, {clubName,name, sender, body}, {db, pubsub}, info){
     const eventName = clubName + "_" + name
+    const checkClub = await db.ClubModel.findOne({name:clubName})
+    if (!checkClub) return {status:"CLUB_NOT_FOUND"}
     const checkEvent = await db.EventModel.findOne({name:eventName})
     if (!checkEvent) return {status:"EVENT_NOT_FOUND"}
     const checkSender = await db.UserModel.findOne({userName:sender})
@@ -125,6 +149,9 @@ const Mutation = {
     await checkEvent.save()
     await newMessage.save()
     console.log("message created: ",body)
+    pubsub.publish(`Club ${clubName}`,{
+      club: {mutation:"CREATED", data:checkClub}
+    })
     pubsub.publish(`Message ${eventName}`,{
       eventMessage: {mutation:"CREATED", data:newMessage}
     })
@@ -147,6 +174,9 @@ const Mutation = {
     if (time) checkClub.time = time
     if (invitation) checkClub.invitation = invitation
     await checkClub.save()
+    pubsub.publish(`Club ${clubName}`,{
+      club: {mutation:"CREATED", data:checkClub}
+    })
     return {status:"SUCCESS", clubData:checkClub}
   },
 

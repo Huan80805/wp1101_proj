@@ -104,6 +104,12 @@ type Subscription {
   #name:EventName
   clubMessage(clubName: String!): CMSubscriptionPayload!
   eventMessage(clubName:String!, name:String!): EMSubscriptionPayload!
+  club(name:String!): ClubSubscriptionPayload!
+}
+
+type ClubSubscriptionPayload{
+  mutation:MutationType
+  data: Club!
 }
 
 type CMSubscriptionPayload {

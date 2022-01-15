@@ -22,6 +22,11 @@ const Query = {
     const eventName = clubName + "_" + name
     return db.EventModel.findOne({name:eventName})
   },
+  async event(parent, {clubName, name}, { db }, info) {
+    //query one event
+    const eventName = clubName + "_" + name
+    return db.EventModel.findOne({name:eventName})
+  },
 };
 
 export { Query as default };

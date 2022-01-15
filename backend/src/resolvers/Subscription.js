@@ -10,6 +10,11 @@ const Subscription = {
         const eventName = clubName + "_" + name
         return pubsub.asyncIterator(`Message ${eventName}`);
     },
+  },
+  club:{
+    subscribe(parent, {name}, { db, pubsub }, info) {
+      return pubsub.asyncIterator(`Club ${name}`);
+  },
   }
 };
 export { Subscription as default };
