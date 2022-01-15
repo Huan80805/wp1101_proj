@@ -4,7 +4,16 @@ import { Button, Form, Input, DatePicker, Switch} from 'antd';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT_MUTATION } from '../../graphql';
-
+import Loading from '../Loading';
+import { notification} from 'antd';
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 const CreateEvent = ({userName, club, backToLoby})=>{
 
     const [createEvent]=useMutation(CREATE_EVENT_MUTATION)
@@ -28,7 +37,8 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 active:true
             }
           });
-          alert("Create Event: " + data.createEvent.status)
+          if (loading) return <Loading/>
+          
           // go back
           backToLoby()
     }

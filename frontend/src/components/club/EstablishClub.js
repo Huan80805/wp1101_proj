@@ -3,7 +3,16 @@ import 'antd/dist/antd.min.css'
 import { Button, Form, Input } from 'antd';
 import {CREATE_CLUB_MUTATION} from '../../graphql';
 import { useMutation } from '@apollo/client';
-
+import { notification} from 'antd';
+import Loading from '../Loading';
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 const EstablishClub = ({backToChooseClub, setClub, userName})=>{
 
     const [createClub] = useMutation(CREATE_CLUB_MUTATION)
@@ -24,9 +33,13 @@ const EstablishClub = ({backToChooseClub, setClub, userName})=>{
                 time:time
             }
           });
-        alert("Create Club: " + data.createClub.status)
-        // go into club loby
-        setClub(()=>clubName)
+        if (loading) return <Loading/>
+        if (data.createClub.status === "SUCCESS"){
+            Notification({type:"success",message:"Directing to Club Lobby..."})
+            setClub(()=>clubName)
+        }
+        else Notification({type:"error",message:data.createClub.status})
+        
     }
 
 

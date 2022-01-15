@@ -6,7 +6,16 @@ import { useState } from 'react';
 import { CREATE_EVENT_MESSAGE_MUTATION, JOIN_EVENT_MUTATION } from '../../../graphql';
 import { useMutation } from '@apollo/client';
 import { Button } from 'antd';
+import { notification} from 'antd';
 
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 
 const EventChatRoom = ({ 
                     userName, 
@@ -30,7 +39,8 @@ const EventChatRoom = ({
           userName:userName
       }
       })
-      alert("Join Event: " + data.joinEvent.status)
+      if (data.joinEvent.status ==="SUCCESS") Notification({type:"success",message:data.joinEvent.status})
+      else Notification({type:"error",message:data.joinEvent.status})
     }
   return (
     <>

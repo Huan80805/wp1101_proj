@@ -3,7 +3,16 @@ import AuthPage from './AuthPage';
 import ClubPlatform from './ClubPlatform';
 import { useLazyQuery } from '@apollo/client';
 import { USER_QUERY } from '../graphql';
+import { notification} from 'antd';
 
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 const SocialPlatform = ()=>{
 
     const [runQuery] = useLazyQuery(USER_QUERY)    
@@ -25,10 +34,11 @@ const SocialPlatform = ()=>{
 
         setUserData(()=>data)
         if(data.user.status === 'SUCCESS'){
+        Notification({type:"success",message:"Log In Succeeds ><"})
         setLogin(()=> true)
         }
         else{
-        alert(data.user.status)
+            Notification({type:"error",message:data.user.status})
         }
     }
     // need async await
