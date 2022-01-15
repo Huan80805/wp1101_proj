@@ -1,6 +1,8 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
 import { Tag, Button } from 'antd';
+import {ReadOutlined, UsergroupAddOutlined, UserAddOutlined} from '@ant-design/icons'
+
 
 const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
      data, setClub})=>{
@@ -13,7 +15,7 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
     return(
         <div className='App'>
             <div className='App-title'>
-                <h1 >{userName}'s Club Menu</h1>
+                <h1 > {userName}'s Club Menu <ReadOutlined /></h1>
             </div>
             <div className='App-clubMenu'>
                 {data.user.userData.clubs.length === 0? (
@@ -31,8 +33,8 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
             </div>
             
             <div className='App-options'>
-                <Button onClick={estaClubOnClick}>estaClubOnClick</Button>
-                <Button onClick={joinClubOnClick}>joinClubOnClick</Button>
+                <Button onClick={estaClubOnClick}>Create Club <UsergroupAddOutlined /></Button>
+                <Button onClick={joinClubOnClick}>Join Club <UserAddOutlined /></Button>
             </div>
         </div>
     )

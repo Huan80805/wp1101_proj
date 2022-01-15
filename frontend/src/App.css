@@ -16,7 +16,10 @@
     width: 500px;
     margin: auto;
   }
-
+  .App-eventInfo{
+    margin: 20px;
+    width: 80%;
+  }
   .App-loginInput{
     width: 70%;
     height: 60%;

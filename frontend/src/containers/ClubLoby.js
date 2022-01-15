@@ -8,6 +8,7 @@ import { useQuery } from '@apollo/client';
 import { CLUB_QUERY } from '../graphql';
 import { Button, Menu} from 'antd';
 import Loading from '../components/Loading';
+import { AppstoreAddOutlined, CommentOutlined, ContainerOutlined, ReadOutlined} from '@ant-design/icons'
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import EventChatRoom from '../components/Chat/room/EventChatRoom';
 import styled from 'styled-components';
@@ -78,7 +79,9 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
             <div className='App-functionMenu' style={{width: '20%', height:'100%'}}>
                 <h2>Meeting Corner</h2>
                 <Menu mode="inline" style={{height:'100%',bottom:"0%"}} >
-                    <Menu.Item key="1" onClick={openClubChat}>Club Chat room</Menu.Item>
+                    <Menu.Item key="1" onClick={openClubChat}>
+                        <CommentOutlined /> Club Chat room
+                    </Menu.Item>
                     <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Events">
                         {
                             data.club.events.length === 0?
@@ -88,9 +91,15 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                             )))
                         }
                     </SubMenu>
-                        <Menu.Item key="Create_Event" onClick={addNewAct}>Create Event</Menu.Item>
-                        <Menu.Item key="ClubInfo" onClick={showClubInfo}>Club Info</Menu.Item>
-                        <Menu.Item key="Go_back_club" onClick={reChooseClub}>back to Menu</Menu.Item>
+                        <Menu.Item key="Create_Event" onClick={addNewAct}>
+                            <AppstoreAddOutlined /> Create Event
+                        </Menu.Item>
+                        <Menu.Item key="ClubInfo" onClick={showClubInfo}>
+                            <ContainerOutlined /> Club Info
+                        </Menu.Item>
+                        <Menu.Item key="Go_back_club" onClick={reChooseClub}>
+                            <ReadOutlined /> back to Menu
+                        </Menu.Item>
                 </Menu>
             </div >
             <div className='App-lobyContend' style={{width:"80%", height:'100%'}}>

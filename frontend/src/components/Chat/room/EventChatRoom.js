@@ -1,7 +1,7 @@
 import EventInputBar from '../EventInputBar'
 import Message from '../Message';
 import Title from '../Title';
-
+import EventInfo from '../../events/EventInfo';
 import { useState } from 'react';
 import { CREATE_EVENT_MESSAGE_MUTATION } from '../../../graphql';
 import { useMutation } from '@apollo/client';
@@ -22,6 +22,7 @@ const EventChatRoom = ({
   return (
     <>
       <Title RoomName={eventName}></Title>
+      <EventInfo  userName={userName} club={clubName} actName={eventName} ></EventInfo>
       <Message messages={messages}></Message>
       <EventInputBar
         body={body}
