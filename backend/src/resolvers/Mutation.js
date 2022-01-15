@@ -1,3 +1,4 @@
+import  mongoose  from "mongoose"
 const Mutation = {
   async createUser(parent, {userName, password, nickname, email,}, {db, pubsub}, info){
     const checkUser = await db.UserModel.findOne({userName:userName})
@@ -104,6 +105,9 @@ const Mutation = {
     await checkClub.save()
     await newMessage.save()
     console.log("message created: ",body)
+    pubsub.publish(`Message ${clubName}`,{
+      clubMessage: {mutation:"CREATED", data:newMessage}
+    })
     return {status: "SUCCESS", messageData: newMessage}
   },
 
@@ -121,55 +125,63 @@ const Mutation = {
     await checkEvent.save()
     await newMessage.save()
     console.log("message created: ",body)
+    pubsub.publish(`Message ${eventName}`,{
+      eventMessage: {mutation:"CREATED", data:newMessage}
+    })
     return {status: "SUCCESS", messageData: newMessage}
   },
+  async mutateClubInfo(parent, {userName, name, introduction, invitation, time}, {db, pubsub}, info){
+    const checkClub = await db.ClubModel.findOne({name:name})
+    if (!checkClub) return {status:"CLUB_NOT_FOUND"}
+    const checkUser = await db.UserModel.findOne({userName:userName})
+    if (!checkUser) return {status:"USER_NOT_FOUND"}
+    let authorized = false
+
+    checkClub.members.map( ({user, identity}) => {
+      if ((user.toString()===checkUser.id) && (identity)){
+        authorized = true
+      }
+    })
+    if (!authorized) return {status:"NOT_AUTHORIZED"}
+    if (introduction) checkClub.introduction = introduction
+    if (time) checkClub.time = time
+    if (invitation) checkClub.invitation = invitation
+    await checkClub.save()
+    return {status:"SUCCESS", clubData:checkClub}
+  },
+
+  // async mutateMembers(parent, {userName, name, targetUser, methodType}, {db, pubsub}, info){
+  //   const checkClub = await db.ClubModel.findOne({name:name})
+  //   if (!checkClub) return {status:"CLUB_NOT_FOUND"}
+  //   const checkUser = await db.UserModel.findOne({userName:userName})
+  //   if (!checkUser) return {status:"USER_NOT_FOUND"}
+  //   const checkTargetUser = await db.UserModel.findOne({userName:targetUser})
+  //   if (!checkTargetUser) return {status:"USER_NOT_FOUND"}
+  //   let authorized = false
+  //   checkClub.members.map( ({user, identity}) => {
+  //     if ((user.toString()===checkUser.id) && (identity)){
+  //       authorized = true
+  //     }
+  //   })
+  //   if (!authorized) return {status:"NOT_AUTHORIZED"}
+  //   // modify user's club list and club's members list
+  //   switch(methodType){
+  //     case("DELETE"):
+  //       // checkTargetUser.clubs.filter(club => club !== name)
+  //       checkClub.members.filter( ({user, identity}) => {
+  //         return {}
+  //       })
+  //       break
+  //   }
+  //   console.log(checkClub)
+  //   await checkClub.save()
+  //   return {status:"SUCCESS", clubData:checkClub}
+  // }
   
 }
 
 export { Mutation as default };
 
 
-
-// import { checkUser, newUser, makeName, checkChatBox, newChatBox, checkMessage, newMessage } from "./utility";
-// const Mutation = {
-//   async createMessage(parent, {from, to, message}, {db, pubsub}, info){
-//     const {chatBox, sender} = await checkMessage(
-//       db,
-//       from,
-//       to,
-//       message,
-//       "createMessage"
-//     )
-//     if (!chatBox) throw new Error("ChatBox not found for create Message")
-//     if (!sender) throw new Error("User not found:" + from)
-//     const chatBoxName = makeName(from, to)
-//     const newMsg = await newMessage(db, sender, message)
-//     chatBox.messages.push(newMsg)
-//     await chatBox.save()
-//     pubsub.publish(`message ${chatBoxName}`,{
-//       message: {mutation:"CREATED", data:newMsg}
-//     })
-//     return newMsg
-//   },
-//   async createChatBox(parent, {name1,name2}, {db,pubsub}, info) {
-//     if (!name1 || !name2)
-//     throw new Error("Missing chatBox name for CreateChatBox");
-//     if (!(await checkUser(db, name1, "createChatBox"))) {
-//       console.log("User does not exist for CreateChatBox: " + name1);
-//       await newUser(db, name1);
-//     }
-//     if (!(await checkUser(db, name2, "createChatBox"))) {
-//       console.log("User does not exist for CreateChatBox: " + name2);
-//       await newUser(db, name2);
-//     }
-//     // make name: sorted name in name1_name2
-//     const chatBoxName = makeName(name1, name2);
-//     let chatBox = 
-//       await checkChatBox(db, chatBoxName, "createChatBox");
-//     if (!chatBox) chatBox = await newChatBox(db, chatBoxName);
-
-//     return chatBox;
-//   },
-// };
 
 

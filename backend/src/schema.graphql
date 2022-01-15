@@ -1,7 +1,8 @@
-#TODO(1/8)
-#Edit invitation
-#Edit identity
+#TODO(1/14)
+#Edit invitation v
+#Edit identity 
 #Subscription
+  #messages v
 
 
 type Query {
@@ -80,7 +81,42 @@ type Mutation{
     name:String!,
     sender:String!  
     body:String!): requestMessageData!
+  #---------note---------
+  #support: invitation, location, time
+  #not support: host, clubName
+  #only user(userName) authorized can mutate(identity=True)
+  mutateClubInfo(
+    userName:String! #for verification
+    name:String!     #clubName
+    invitation:String
+    introduction:String
+    time:String): mutateClubData!
+  # mutateMembers(
+  #   userName:String! #for verification
+  #   name:String!     #clubName
+  #   targetUser:String!#another Username
+  #   methodType: MethodType!   #DOWNGRADE,UPGRADE,DELETE
+  #   ): mutateClubData!
 }
+type Subscription {
+  #---------note---------
+  #clubName:clubName
+  #name:EventName
+  clubMessage(clubName: String!): CMSubscriptionPayload!
+  eventMessage(clubName:String!, name:String!): EMSubscriptionPayload!
+}
+
+type CMSubscriptionPayload {
+  mutation: MutationType!
+  data: Message!
+}
+
+type EMSubscriptionPayload{
+  mutation: MutationType!
+  data: Message!
+}
+
+
 #---------note---------
 #User: private user data
 #publicUser: public user data (nickname, userName)
@@ -137,6 +173,10 @@ type requestClubData{
   status: Status!,
   clubData: Club  
 }
+type mutateClubData{
+  status: Status!
+  clubData: Club
+}
 type requestEventData{
   status: Status!,
   eventData: Event
@@ -158,6 +198,16 @@ enum Status {
   VERIFICATION_FAILED
   EVENT_NOT_FOUND
   EVENT_ALREADY_EXISTED
+  NOT_AUTHORIZED
+}
+enum MethodType{
+  DELETE
+  UPGRADE
+  DOWNGRADE
+}
+enum MutationType{
+  CREATED
+  DELETED
 }
 
 

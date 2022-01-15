@@ -5,7 +5,7 @@ import Mutation from './resolvers/Mutation';
 import Club from './resolvers/Club';
 import Event from './resolvers/Event';
 import Message from './resolvers/Message';
-// import Subscription from './resolvers/Subscription';
+import Subscription from './resolvers/Subscription';
 import mongo from './mongo'
 
 const pubsub = new PubSub();
@@ -18,7 +18,7 @@ const server = new GraphQLServer({
     Club,
     Event,
     Message,
-    // Subscription,
+    Subscription,
   },
   playground: { version: '1.7.25' },
   context: {

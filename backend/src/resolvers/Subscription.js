@@ -1,12 +1,16 @@
-// import { makeName } from "./utility";
-// // broadcast the message to another one in the chatbox
-// const Subscription = {
-//   message: {
-//     subscribe(parent, { name1, name2 }, { db, pubsub }, info) {
-//     const chatBoxName = makeName(name1, name2)
-//     return pubsub.asyncIterator(`message ${chatBoxName}`);
-//     },
-//   }
-// };
-// export { Subscription as default };
+// broadcast the message to another one in the chatRoom
+const Subscription = {
+  clubMessage: {
+    subscribe(parent, { clubName}, { db, pubsub }, info) {
+        return pubsub.asyncIterator(`Message ${clubName}`);
+    },
+  },
+  eventMessage: {
+    subscribe(parent, { clubName, name}, { db, pubsub }, info) {
+        const eventName = clubName + "_" + name
+        return pubsub.asyncIterator(`Message ${eventName}`);
+    },
+  }
+};
+export { Subscription as default };
 
