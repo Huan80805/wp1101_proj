@@ -104,7 +104,7 @@ type Subscription {
   #name:EventName
   clubMessage(clubName: String!): CMSubscriptionPayload!
   eventMessage(clubName:String!, name:String!): EMSubscriptionPayload!
-  club(name:String!): ClubSubscriptionPayload!
+  club(name:String!): Club!
 }
 
 type ClubSubscriptionPayload{

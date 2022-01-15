@@ -83,7 +83,7 @@ const Mutation = {
     await checkClub.save()
     console.log("event created: ",name)
     pubsub.publish(`Club ${clubName}`,{
-      club: {mutation:"CREATED", data:checkClub}
+      club: checkClub
     })
     return {status: "SUCCESS", eventData: newEvent}
   },
@@ -106,7 +106,7 @@ const Mutation = {
     checkEvent.members.push({user:checkUser,identity:false})
     await checkEvent.save()
     pubsub.publish(`Club ${clubName}`,{
-      club: {mutation:"CREATED", data:checkClub}
+      club: checkClub
     })
     return {status: "SUCCESS", eventData: checkEvent}
   },
@@ -125,7 +125,7 @@ const Mutation = {
     await newMessage.save()
     console.log("message created: ",body)
     pubsub.publish(`Club ${clubName}`,{
-      club: {mutation:"CREATED", data:checkClub}
+      club: checkClub
     })
     pubsub.publish(`Message ${clubName}`,{
       clubMessage: {mutation:"CREATED", data:newMessage}
@@ -150,7 +150,7 @@ const Mutation = {
     await newMessage.save()
     console.log("message created: ",body)
     pubsub.publish(`Club ${clubName}`,{
-      club: {mutation:"CREATED", data:checkClub}
+      club: checkClub
     })
     pubsub.publish(`Message ${eventName}`,{
       eventMessage: {mutation:"CREATED", data:newMessage}
@@ -175,7 +175,7 @@ const Mutation = {
     if (invitation) checkClub.invitation = invitation
     await checkClub.save()
     pubsub.publish(`Club ${clubName}`,{
-      club: {mutation:"CREATED", data:checkClub}
+      club: checkClub
     })
     return {status:"SUCCESS", clubData:checkClub}
   },

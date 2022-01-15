@@ -11,6 +11,8 @@ import Loading from '../components/Loading';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import EventChatRoom from '../components/Chat/room/EventChatRoom';
 import styled from 'styled-components';
+import { useEffect } from 'react';
+import { CLUB_SUBSCRIPTION } from '../graphql/subscriptions';
 const Wrapper = styled.div`
   margin: auto;
   width: 100%;
@@ -25,12 +27,27 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
     const [eventName, setEventName] = useState('')
     const [createEvent, setCreateEvent] = useState(false)
     const [showInfo, setShowInfo] = useState(false)
-    const {loading, data} = useQuery(CLUB_QUERY, 
+    const {data, loading, subscribeToMore} = useQuery(CLUB_QUERY, 
         {
         variables:{
             name:club
         }
-        })
+    })
+    useEffect(() => {
+        try{
+            // update message using subscription
+            subscribeToMore({
+                document: CLUB_SUBSCRIPTION,
+                variables:{name:club},
+                updateQuery:(prev, {subscriptionData}) =>{
+                    if(!subscriptionData.data) return prev
+                    console.log(subscriptionData.data)
+                    return subscriptionData.data
+                }
+            })
+        }catch(e){console.log("subscription error")}
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [subscribeToMore]);
     if(loading) return <Loading/>
     //if(!data.club) return "error"
     const openClubChat = ()=>{
@@ -55,7 +72,6 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
         // close create event
         setCreateEvent(()=>false)
         // open event chat room
-        console.log(e)
         setEventName(()=>e.key)
     }
     const showClubInfo = ()=>{
