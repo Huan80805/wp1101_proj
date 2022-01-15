@@ -6,16 +6,16 @@ import { useMutation } from '@apollo/client';
 
 const EstablishClub = ({backToChooseClub, setClub, userName})=>{
 
-    const [createClub, {data, loading, error}] = useMutation(CREATE_CLUB_MUTATION)
+    const [createClub] = useMutation(CREATE_CLUB_MUTATION)
     const [clubName, setClubName] = useState('')
     const [time, setTime] = useState('')
     const [intro, setInro] = useState('')
     const [invit, setInvit] = useState('')
 
-    const createClubSubmit = (e)=>{
+    const createClubSubmit = async (e)  =>{
         e.preventDefault();
         // error handel
-        createClub({
+        const {data, loading, error}= await createClub({
             variables: {
                 name:clubName,
                 host:userName,
@@ -24,13 +24,10 @@ const EstablishClub = ({backToChooseClub, setClub, userName})=>{
                 time:time
             }
           });
-        alert(data.createClub.status)
+        alert("Create Club: " + data.createClub.status)
         // go into club loby
         setClub(()=>clubName)
     }
-
-    if(loading) return "Loading...";
-    if(error) return <pre>{error.message}</pre>
 
 
     return(

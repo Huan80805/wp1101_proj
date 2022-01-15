@@ -7,16 +7,16 @@ import { useMutation } from '@apollo/client';
 
 const RegistPage = ({closeRegistPage}) =>{
 
-    const [createUser, {data, loading, error}] = useMutation(CREATE_USER_MUTATION);
+    const [createUser] = useMutation(CREATE_USER_MUTATION);
     const [userName, setUserName] = useState('');
     const [nickname, setNickName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('')
     
-    const submitOnClick = (e)=>{
+    const submitOnClick = async (e)=>{
         e.preventDefault();
         
-         createUser({
+        const  {data} = await createUser({
             variables: {
                 userName:userName,
                 password:password,
@@ -24,12 +24,10 @@ const RegistPage = ({closeRegistPage}) =>{
                 email: email
             }
           });
-        alert(data.createUser.status)
+        alert("Register: " + data.createUser.status)
         closeRegistPage();
         
     }
-    if(loading) return "Loading...";
-    if(error) return <pre>{error.message}</pre>
 
     return (
         <div className='App'>

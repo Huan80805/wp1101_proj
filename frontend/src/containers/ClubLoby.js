@@ -32,6 +32,7 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
         }
         })
     if(loading) return <Loading/>
+    //if(!data.club) return "error"
     const openClubChat = ()=>{
         // close create event
         setCreateEvent(()=>false)
