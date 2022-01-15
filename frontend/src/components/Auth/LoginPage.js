@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.min.css'
 import '../../App.css'
+import { ArrowDownOutlined } from '@ant-design/icons'
 import { Button, Form, Input, Checkbox} from 'antd';
 import styled from 'styled-components';
 const Wrapper = styled.div`
@@ -15,9 +16,17 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
     registerOnClick, forgetOnClick}) =>{
 
     return(
+        <>
+        <img className='loginPic' src="https://doqvf81n9htmm.cloudfront.net/data/alicelee_126/201801/0123/204.jpg" ></img>
         <div className='App'>
             <div className='App-title'>
-                <h1 >Login</h1>
+                <h1>Club Meeting Corner</h1>
+            </div>
+            <div className='App-title'>
+                <h2>Login To Start!
+                    <ArrowDownOutlined />
+                </h2>
+                
             </div>
             <div className='App-loginInput'>
                 <Form name="basic">
@@ -52,6 +61,9 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                 </Form>
             </div>
         </div>
+        <p>pic from: 達志 </p>
+        </>
+        
         
     )
 }
