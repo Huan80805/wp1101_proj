@@ -8,7 +8,9 @@ import Loading from '../Loading';
 import { Button, Form, Input, Checkbox} from 'antd';
 import { UserOutlined } from '@ant-design/icons'
 
-const Identity = ({userName})=>{
+const Profile = ({userName})=>{
+    
+    const [openProfile, setOpenProfile] = useState(false)
     const {loading, data} = useQuery(USER_QUERY, 
         {
             variables:{
@@ -21,10 +23,14 @@ const Identity = ({userName})=>{
 
     return(
     <>
-        <UserOutlined />
+        {/* should hover show that can click */}
+        <UserOutlined onClick={()=>(setOpenProfile(()=>true))}/>
+        {/* {openProfile &&
+
+        } */}
     </>
     )
 
 
 }
-export default Identity;   
+export default Profile;   
