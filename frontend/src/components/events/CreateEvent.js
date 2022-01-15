@@ -5,7 +5,7 @@ import { Button, Form, Input } from 'antd';
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT_MUTATION } from '../../graphql';
 
-const AddAct = ({userName, club, backToLoby})=>{
+const CreateEvent = ({userName, club, backToLoby})=>{
 
     const [createEvent, {data, loading, error}]=useMutation(CREATE_EVENT_MUTATION)
 
@@ -74,4 +74,4 @@ const AddAct = ({userName, club, backToLoby})=>{
     )
 }
 
-export default AddAct;
+export default CreateEvent;

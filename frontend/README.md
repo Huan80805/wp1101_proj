@@ -1,6 +1,4 @@
 # undo
-# Join Club
-# Establish enter after authentication
 # Chat room
 # UI/UX
 # management mode

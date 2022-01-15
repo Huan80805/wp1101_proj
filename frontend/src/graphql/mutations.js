@@ -67,3 +67,23 @@ export const JOIN_CLUB_MUTATION = gql`
         }
     }
 `;
+
+export const CREATE_CLUB_MESSAGE_MUTATION = gql`
+    mutation createClubMessage($clubName:String!, $sender:String!  
+    $body:String!){
+        createClubMessage(clubName:$clubName, sender:$sender  
+    body:$body){
+        status
+    }
+    }
+`;
+
+export const CREATE_EVENT_MESSAGE_MUTATION = gql`
+    mutation createEventMessage($clubName:String!, $name:String!, $sender:String!  
+    $body:String!){
+        createEventMessage(clubName:$clubName, name:$name sender:$sender  
+    body:$body){
+        status
+    }
+    }
+`;

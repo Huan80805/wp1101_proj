@@ -44,8 +44,22 @@ export const CLUB_QUERY = gql`
       events{
         name
         time
+        chatRoom{
+          sender{
+            nickname
+            userName
+          }
+          body
+        }
       }
       invitation
+      chatRoom{
+        sender{
+          nickname
+          userName
+        }
+        body
+      }
     }
   }
 `;
@@ -66,6 +80,7 @@ export const EVENT_QUERY = gql`
       active
       chatRoom{
         sender{
+          userName
           nickname
         }
         body

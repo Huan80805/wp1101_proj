@@ -4,7 +4,7 @@ import { Button, Descriptions } from 'antd';
 import { EVENT_QUERY } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
 
-const Act = ({userName, club, actName, backToLoby})=>{
+const EventInfo = ({userName, club, actName, backToLoby})=>{
 
     const {loading, error, data} = useQuery(EVENT_QUERY, 
         {
@@ -48,4 +48,4 @@ const Act = ({userName, club, actName, backToLoby})=>{
     )
 }
 
-export default Act;
+export default EventInfo;

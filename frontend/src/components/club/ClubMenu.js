@@ -15,7 +15,7 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
             <div className='App-title'>
                 <h1 >{userName}'s Club Menu</h1>
             </div>
-            <div className='App-menu'>
+            <div className='App-clubMenu'>
                 {data.user.userData.clubs.length === 0? (
                 <p style={{ color: '#ccc' }}>
                     No Clubs
