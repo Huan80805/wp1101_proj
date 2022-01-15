@@ -33,12 +33,9 @@
   .App-clubMenu{
     width: 400px;
     height: 60%;
-    vertical-align: middle;
     overflow-y: scroll;
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
-    margin-left: auto;
-    margin-right: auto;
   }
   .App-clubMenu button{
     font-size: 25px;
