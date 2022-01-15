@@ -1,5 +1,6 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
+import { Button } from 'antd';
 import ClubLoby from './ClubLoby';
 import ChooseClub from '../components/club/ChooseClub';
 const ClubPlatform = ({logOut, userName, data}) =>{
@@ -15,7 +16,7 @@ const ClubPlatform = ({logOut, userName, data}) =>{
                 ? <ClubLoby reChooseClub={reChooseClub} userName={userName} club={club}/>
                 : <ChooseClub setClub={setClub} userName={userName} data={data}/>
             }
-            <button onClick={logOut}>log out</button>
+            <Button onClick={logOut}>log out</Button>
         </>
         
     )

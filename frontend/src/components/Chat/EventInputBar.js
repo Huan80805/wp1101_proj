@@ -10,6 +10,7 @@ const EventInputBar = ({ body,
 
   return (
     <Input.Search
+      className='App-inputBar'
       value={body}
       onChange={(e) => setBody(e.target.value)}
       enterButton="Send"

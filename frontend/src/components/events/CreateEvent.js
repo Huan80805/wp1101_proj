@@ -43,10 +43,8 @@ const CreateEvent = ({userName, club, backToLoby})=>{
     if(error) return <pre>{error.message}</pre>
 
     return(
-        <div className='App'>
-            <div className='App-title'>
-                    <h1 >Create Act</h1>
-            </div>
+        <div>
+            <h1 >Create Act</h1>
             <Form>
                 <Form.Item label="Event's Name:">
                 <Input  onChange={(e)=>setEventName(()=>e.target.value)}/>
@@ -72,8 +70,6 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 <Button type="primary" htmlType="submit" onClick={createEventSubmit}>
                     create event
                 </Button>
-
-                <Button onClick={backToLoby}>backToLoby</Button>
                 </Form.Item>
             </Form>
         </div>

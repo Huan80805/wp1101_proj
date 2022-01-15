@@ -18,10 +18,10 @@ const ClubChatRoom = ({
     const [body, setBody] = useState('')
     
   return (
-    <>
+    <div>
       <Title RoomName={clubName}></Title>
       <Message messages={messages}></Message>
-      <ClubInputBar
+      <ClubInputBar 
         body={body}
         setBody={setBody}
         username={userName}
@@ -29,7 +29,7 @@ const ClubChatRoom = ({
         //displayStatus={displayStatus}
         sendMessage={sendClubMessage}
       ></ClubInputBar>
-    </>
+    </div>
   )
 };
 

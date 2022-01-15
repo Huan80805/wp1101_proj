@@ -6,7 +6,7 @@
   }
   
 
-.App {
+  .App {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -41,12 +41,25 @@
     margin: 10px;
     
   }
+  .App-loby {
+    overflow: hidden;
+  }
   .App-functionMenu {
-    width: 25%;
+    margin: 20px;
+    float:left;
+    width: 20%;
   }
-  .App-chatRoom {
-    width: 75%;
+  .App-lobyContent {
+    margin: 20px;
+    float:right;
+    width: 30%;
   }
+  /* .App-inputBar {
+    width: 40%;
+  } */
+
+
+
   /* .App-messages {
     width: 100%;
     height: 300px;

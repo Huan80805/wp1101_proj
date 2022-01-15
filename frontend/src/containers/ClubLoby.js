@@ -70,10 +70,9 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
 
     return(
         <div>
-            <div>
+            <div className='App-functionMenu'>
                 <h2>Meeting Corner</h2>
-                <Menu mode="inline" className='App-functionMenu'>
-                    
+                <Menu mode="inline" >
                     <Menu.Item key="1" onClick={openClubChat}>Club Chat room</Menu.Item>
                     <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Events">
                         {
@@ -88,21 +87,24 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                         <Menu.Item key="ClubInfo" onClick={showClubInfo}>Club Info</Menu.Item>
                         <Menu.Item key="Go_back_club" onClick={reChooseClub}>back to Menu</Menu.Item>
                 </Menu>
+            </div >
+            <div className='App-lobyContend'>
+                {(eventName=='' && !createEvent && !showInfo) &&
+                    <ClubChatRoom className='App-chatRoom' userName = {userName} clubName={club} messages={data.club.chatRoom}/>
+                }
+                
+                {(eventName != '') &&
+                    //<EventInfo userName={userName} club={club} actName ={actName} backToLoby={backToLoby} />
+                    <EventChatRoom userName = {userName} messages = {data.club.events.filter(( {name} ) => name.split('_')[1] === eventName)[0].chatRoom} clubName={club} eventName = {eventName}/>
+                }
+                {createEvent &&
+                    <CreateEvent userName={userName} club={club} backToLoby={backToLoby} />
+                }
+                {showInfo &&
+                    <ClubInfo userName={userName} clubData={data}/>
+                }
             </div>
-            {(eventName=='' && !createEvent && !showInfo) &&
-                <ClubChatRoom className='App-chatRoom' userName = {userName} clubName={club} messages={data.club.chatRoom}/>
-            }
             
-            {(eventName != '') &&
-                //<EventInfo userName={userName} club={club} actName ={actName} backToLoby={backToLoby} />
-                <EventChatRoom userName = {userName} messages = {data.club.events.filter(( {name} ) => name.split('_')[1] === eventName)[0].chatRoom} clubName={club} eventName = {eventName}/>
-            }
-            {createEvent &&
-                <CreateEvent userName={userName} club={club} backToLoby={backToLoby} />
-            }
-            {showInfo &&
-                <ClubInfo userName={userName} clubData={data}/>
-            }
         </div>
     )
 }
