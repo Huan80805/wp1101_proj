@@ -4,6 +4,16 @@ import { useState } from 'react';
 import { Button, Form, Input } from 'antd';
 import { CREATE_USER_MUTATION } from '../../graphql';
 import { useMutation } from '@apollo/client';
+import { notification} from 'antd';
+
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 
 const RegistPage = ({closeRegistPage}) =>{
 
@@ -24,8 +34,15 @@ const RegistPage = ({closeRegistPage}) =>{
                 email: email
             }
           });
-        alert("Register: " + data.createUser.status)
-        closeRegistPage();
+        if (data.createUser.status==="SUCCESS"){
+            Notification({type:"success",message:data.createUser.status})
+            closeRegistPage();
+
+        }
+        else{
+            Notification({type:"error",message:data.createUser.status})
+        }
+        
         
     }
 
