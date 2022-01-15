@@ -18,7 +18,7 @@ const ClubChatRoom = ({
     const [body, setBody] = useState('')
     
   return (
-    <div>
+    <div >
       <Title RoomName={clubName}></Title>
       <Message messages={messages}></Message>
       <ClubInputBar 

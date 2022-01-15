@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const MessageWrapper = styled.div`
   width: 75%;
-  height: 200px;
+  height: 80%;
   background: #eeeeee52;
   border-radius: 10px;
   margin: 20px;
