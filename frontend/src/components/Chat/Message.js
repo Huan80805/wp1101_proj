@@ -15,7 +15,7 @@ const MessageWrapper = styled.div`
   scrollbar-width: thin;
 `;
 
-const Message = ({ messages }) => {
+const Message = ({ messages, userName }) => {
   return (
     <div className='App-ChatBox'>
       <MessageWrapper >
@@ -24,10 +24,14 @@ const Message = ({ messages }) => {
             No messages...
           </p>
         ) : (
+          // todo
           messages.map(({sender, body}, i) => (
-            <p className="App-message" key={i}>
-              <Tag color="blue">{sender.nickname}</Tag>{body}
-            </p>
+            (sender.userName === userName)?
+              <h1>Me</h1>
+              :<p className="App-message" key={i}>
+                  <Tag color="blue">{sender.nickname}</Tag>{body}
+                </p>
+            
           ))
         )
       }

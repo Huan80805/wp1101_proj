@@ -23,8 +23,7 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                 <h1>Club Meeting Corner</h1>
             </div>
             <div className='App-title'>
-                <h2>Login To Start!
-                    <ArrowDownOutlined />
+                <h2>Login To Start! <ArrowDownOutlined />
                 </h2>
                 
             </div>

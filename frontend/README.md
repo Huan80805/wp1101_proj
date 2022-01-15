@@ -11,3 +11,5 @@
 ## asyncrous problem? cant get data every time??
 
 # meet time
+
+# JOIN CLUB / MESSAGE / MEMBER

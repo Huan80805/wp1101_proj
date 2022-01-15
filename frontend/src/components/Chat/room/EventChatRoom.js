@@ -39,7 +39,7 @@ const EventChatRoom = ({
         <Button className='JoinEventBt' onClick={join}>Join!</Button>
       </div>
       <EventInfo  userName={userName} club={clubName} actName={eventName} ></EventInfo>
-      <Message messages={messages}></Message>
+      <Message messages={messages} userName={userName} ></Message>
       <EventInputBar
         body={body}
         setBody={setBody}

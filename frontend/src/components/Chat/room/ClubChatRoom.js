@@ -20,7 +20,7 @@ const ClubChatRoom = ({
   return (
     <div >
       <Title RoomName={clubName}></Title>
-      <Message messages={messages}></Message>
+      <Message messages={messages} userName ={userName} ></Message>
       <ClubInputBar 
         body={body}
         setBody={setBody}

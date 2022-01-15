@@ -13,28 +13,28 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
     }
 
     return(
-        <div>
-            <div>
+        <div className='App'>
+            <div className='App-title'>
                 <h1 > {userName}'s Club Menu <ReadOutlined /></h1>
-                <div className='App-clubMenu'>
-                    {data.user.userData.clubs.length === 0? (
-                    <p style={{ color: '#ccc' }}>
-                        No Clubs
-                    </p>
-                    ):(
-                        data.user.userData.clubs.map((clubs, i)=>(
-                            <p key={i}>
-                                <Button danger onClick={e=>(chooseThisClub(e.target.innerText))}>{clubs}</Button>
-                            </p>
-                        ))
-                    )
-                    }
-                </div>
+            </div>
+            <div className='App-clubMenu'>
+                {data.user.userData.clubs.length === 0? (
+                <p style={{ color: '#ccc' }}>
+                    No Clubs
+                </p>
+                ):(
+                    data.user.userData.clubs.map((clubs, i)=>(
+                        <p key={i}>
+                            <Button danger onClick={e=>(chooseThisClub(e.target.innerText))}>{clubs}</Button>
+                        </p>
+                    ))
+                )
+                }
+            </div>
             
-                <div className='App-options'>
-                    <Button onClick={estaClubOnClick}>Create Club <UsergroupAddOutlined /></Button>
-                    <Button onClick={joinClubOnClick}>Join Club <UserAddOutlined /></Button>
-                </div>
+            <div className='App-options'>
+                <Button onClick={estaClubOnClick}>Create Club <UsergroupAddOutlined /></Button>
+                <Button onClick={joinClubOnClick}>Join Club <UserAddOutlined /></Button>
             </div>
         </div>
     )
