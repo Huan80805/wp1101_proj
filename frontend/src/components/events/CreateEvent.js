@@ -7,7 +7,7 @@ import { CREATE_EVENT_MUTATION } from '../../graphql';
 
 const CreateEvent = ({userName, club, backToLoby})=>{
 
-    const [createEvent, {data, loading, error}]=useMutation(CREATE_EVENT_MUTATION)
+    const [createEvent]=useMutation(CREATE_EVENT_MUTATION)
 
     const [eventName, setEventName] = useState('')
     const [eventTime, setEventTime] = useState('')
@@ -15,9 +15,9 @@ const CreateEvent = ({userName, club, backToLoby})=>{
     const [eventInro, setEventIntro] = useState('')
     const [eventActive, setEventActive] = useState(false)
     
-    const createEventSubmit = (e)=>{
+    const createEventSubmit = async (e)=>{
         e.preventDefault();
-        createEvent({
+        const {data, loading, error} = await createEvent({
             variables: {
                 clubName:club,
                 name:eventName,
@@ -28,19 +28,11 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 active:true
             }
           });
-          alert(data.createEvent.status)
+          alert("Create Event: " + data.createEvent.status)
           // go back
           backToLoby()
     }
 
-    const handelTime = (datetime)=>{
-        console.log(String(datetime))
-        
-        console.log(String(datetime).split('2022')[0])        
-    }
-
-    if(loading) return "Loading...";
-    if(error) return <pre>{error.message}</pre>
 
     return(
         <div>
@@ -51,7 +43,7 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 </Form.Item>
 
                 <Form.Item label="Event's Time:">
-                <DatePicker onChange={(e)=>handelTime(String(e._d).split('2022')[0])}/>
+                <DatePicker onChange={(e)=>setEventTime(()=>String(e._d).split('2022')[0])}/>
                 </Form.Item>
 
                 <Form.Item label="Location:">
