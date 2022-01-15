@@ -1,7 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.min.css'
 import '../../App.css'
-import { Button, Form, Input, Checkbox } from 'antd';
+import { Button, Form, Input, Checkbox} from 'antd';
 import styled from 'styled-components';
 const Wrapper = styled.div`
   margin: auto;
@@ -41,7 +41,7 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                     }}
                 >   
                 <Wrapper className='App-options'>
-                     <Button type="primary" htmlType="submit" onClick={loginCheck}>
+                    <Button type="primary" htmlType="submit" onClick={loginCheck}>
                     Login
                     </Button>
                     <Button onClick={registerOnClick}>Register</Button>
@@ -49,9 +49,8 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                 </Wrapper>
                     
                 </Form.Item>
-            </Form>
+                </Form>
             </div>
-            
         </div>
         
     )

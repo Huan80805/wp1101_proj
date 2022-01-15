@@ -6,9 +6,17 @@ import EventInfo from '../components/events/EventInfo'
 import ClubInfo from '../components/club/ClubInfo'
 import { useQuery } from '@apollo/client';
 import { CLUB_QUERY } from '../graphql';
-import { Button, Menu } from 'antd';
+import { Button, Menu} from 'antd';
+import Loading from '../components/Loading';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import EventChatRoom from '../components/Chat/room/EventChatRoom';
+import styled from 'styled-components';
+const Wrapper = styled.div`
+  margin: auto;
+  width: 100%;
+  display: flex;
+`;
+
 const { SubMenu } = Menu;
 
 
@@ -17,17 +25,13 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
     const [eventName, setEventName] = useState('')
     const [createEvent, setCreateEvent] = useState(false)
     const [showInfo, setShowInfo] = useState(false)
-    const {loading, error, data} = useQuery(CLUB_QUERY, 
+    const {loading, data} = useQuery(CLUB_QUERY, 
         {
         variables:{
             name:club
         }
         })
-    if(loading) return "Loading...";
-    if(error) return <pre>{error.message}</pre>
-
-    if(!data.club) return "error"
-    
+    if(loading) return <Loading/>
     const openClubChat = ()=>{
         // close create event
         setCreateEvent(()=>false)
@@ -69,10 +73,10 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
     }
 
     return(
-        <div>
-            <div className='App-functionMenu'>
+        <Wrapper>
+            <div className='App-functionMenu' style={{width: '20%', height:'100%'}}>
                 <h2>Meeting Corner</h2>
-                <Menu mode="inline" >
+                <Menu mode="inline" style={{height:'100%',bottom:"0%"}} >
                     <Menu.Item key="1" onClick={openClubChat}>Club Chat room</Menu.Item>
                     <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Events">
                         {
@@ -88,11 +92,12 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                         <Menu.Item key="Go_back_club" onClick={reChooseClub}>back to Menu</Menu.Item>
                 </Menu>
             </div >
-            <div className='App-lobyContend'>
-                {(eventName=='' && !createEvent && !showInfo) &&
-                    <ClubChatRoom userName = {userName} clubName={club} messages={data.club.chatRoom}/>
+            <div className='App-lobyContend' style={{width:"80%", height:'100%'}}>
+                {(eventName ==='' && !createEvent && !showInfo) &&
+                    <ClubChatRoom className='App-chatRoom' userName = {userName} clubName={club} messages={data.club.chatRoom}/>
                 }
-                {(eventName != '') &&
+                
+                {(eventName !== '') &&
                     //<EventInfo userName={userName} club={club} actName ={actName} backToLoby={backToLoby} />
                     <EventChatRoom userName = {userName} messages = {data.club.events.filter(( {name} ) => name.split('_')[1] === eventName)[0].chatRoom} clubName={club} eventName = {eventName}/>
                 }
@@ -104,7 +109,7 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                 }
             </div>
             
-        </div>
+        </Wrapper>
     )
 }
 

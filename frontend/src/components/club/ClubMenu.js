@@ -23,7 +23,7 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
                 ):(
                     data.user.userData.clubs.map((clubs, i)=>(
                         <p key={i}>
-                            <Button danger onClick={e=>(chooseThisClub(e.target.innerHTML))}>{clubs}</Button>
+                            <Button danger onClick={e=>(chooseThisClub(e.target.innerText))}>{clubs}</Button>
                         </p>
                     ))
                 )

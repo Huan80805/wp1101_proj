@@ -14,6 +14,7 @@ const Query = {
   },
   async club(parent, {name}, { db }, info) {
     //query one club
+    console.log(name)
     return db.ClubModel.findOne({name:name})
   },
   async event(parent, {clubName, name}, { db }, info) {
