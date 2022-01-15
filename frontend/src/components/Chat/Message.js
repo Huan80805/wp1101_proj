@@ -14,7 +14,8 @@ const MessageWrapper = styled.div`
 const Message = ({ messages }) => {
   console.log(messages)
   return (
-    <MessageWrapper>
+    <div className='App-ChatBox'>
+      <MessageWrapper >
       {messages.length === 0 ? (
           <p style={{ color: '#ccc' }}>
             No messages...
@@ -28,6 +29,8 @@ const Message = ({ messages }) => {
         )
       }
     </MessageWrapper>
+    </div>
+    
   )
 };
 

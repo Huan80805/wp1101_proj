@@ -44,7 +44,7 @@ const CreateEvent = ({userName, club, backToLoby})=>{
 
     return(
         <div>
-            <h1 >Create Act</h1>
+            <h1 >Create Event</h1>
             <Form>
                 <Form.Item label="Event's Name:">
                 <Input  onChange={(e)=>setEventName(()=>e.target.value)}/>

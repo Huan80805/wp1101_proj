@@ -90,9 +90,8 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
             </div >
             <div className='App-lobyContend'>
                 {(eventName=='' && !createEvent && !showInfo) &&
-                    <ClubChatRoom className='App-chatRoom' userName = {userName} clubName={club} messages={data.club.chatRoom}/>
+                    <ClubChatRoom userName = {userName} clubName={club} messages={data.club.chatRoom}/>
                 }
-                
                 {(eventName != '') &&
                     //<EventInfo userName={userName} club={club} actName ={actName} backToLoby={backToLoby} />
                     <EventChatRoom userName = {userName} messages = {data.club.events.filter(( {name} ) => name.split('_')[1] === eventName)[0].chatRoom} clubName={club} eventName = {eventName}/>
