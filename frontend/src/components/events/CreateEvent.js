@@ -40,6 +40,8 @@ const CreateEvent = ({userName, club, backToLoby})=>{
           if (loading) return <Loading/>
           
           // go back
+          if(data.createEvent.status==="success") Notification({type:'success',message:'Event Created ><'})
+          else Notification({type:'error', message:data.createEvent.status})
           backToLoby()
     }
 

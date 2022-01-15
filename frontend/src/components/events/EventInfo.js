@@ -3,7 +3,7 @@ import 'antd/dist/antd.min.css'
 import { Button, Descriptions, Tag } from 'antd';
 import { EVENT_QUERY } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
-
+import Loading from '../Loading';
 const EventInfo = ({userName, club, actName})=>{
 
     const {loading, error, data} = useQuery(EVENT_QUERY, 
@@ -13,10 +13,10 @@ const EventInfo = ({userName, club, actName})=>{
             name:actName
         }
     })
-    
-    if(loading) return "Loading...";
+    if (loading) return <Loading/>
     if(error) return <pre>{error.message}</pre>
     console.log(data.event.members)
+    console.log(data.event.members[0])
     return(
         <div className='App-eventInfo'>
             <Descriptions bordered layout="vertical">
@@ -25,7 +25,9 @@ const EventInfo = ({userName, club, actName})=>{
                 <Descriptions.Item label="Location">{data.event.location}</Descriptions.Item>
                 <Descriptions.Item label="Host">{data.event.host}</Descriptions.Item>
                 <Descriptions.Item label="Members">
-                    {data.event.members.map(member=>{<Tag>{member.user.userName}</Tag>})}
+                    {data.event.members.map( member => 
+                        {return member.user.userName + " "}
+                    )}
                 </Descriptions.Item>
                   
             </Descriptions>

@@ -4,8 +4,17 @@ import { Button, Input } from 'antd';
 import { CLUBS_QUERY, JOIN_CLUB_MUTATION } from '../../graphql';
 import { useQuery, useMutation } from '@apollo/client';
 import { UserOutlined } from '@ant-design/icons';
+import Loading from '../Loading';
+import { notification} from 'antd';
 
-
+const Notification = ({type,message}) => {
+  notification[type]({
+    message: message,
+    description:
+      "",
+    duration:3
+  });
+};
 const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
 
     let {data, loading, error} = useQuery(CLUBS_QUERY)
@@ -25,8 +34,10 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
           })
         // go into this club
         if(data.joinClub.status === 'SUCCESS'){
+            Notification({type:'success',message:'Directing to Club Lobby'})
             setClub(()=>clubInput)
         }
+        else Notification({type:"error", message:data.joinClub.status})
         setShowInput(()=>false)
     }
     const chooseThis = (e)=>{
@@ -34,7 +45,7 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
         setShowInput(()=>true)
     }
 
-    if(loading) return "Loading...";
+    if(loading) return <Loading/>
     if(error) return <pre>{error.message}</pre>
 
     return(
