@@ -89,9 +89,6 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                         <Menu.Item key="Go_back_club" onClick={reChooseClub}>back to Menu</Menu.Item>
                 </Menu>
             </div>
-            {
-
-            }
             {(eventName=='' && !createEvent && !showInfo) &&
                 <ClubChatRoom className='App-chatRoom' userName = {userName} clubName={club} messages={data.club.chatRoom}/>
             }

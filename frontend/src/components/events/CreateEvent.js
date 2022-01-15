@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, DatePicker, Switch} from 'antd';
 
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT_MUTATION } from '../../graphql';
@@ -33,6 +33,12 @@ const CreateEvent = ({userName, club, backToLoby})=>{
           backToLoby()
     }
 
+    const handelTime = (datetime)=>{
+        console.log(String(datetime))
+        
+        console.log(String(datetime).split('2022')[0])        
+    }
+
     if(loading) return "Loading...";
     if(error) return <pre>{error.message}</pre>
 
@@ -47,7 +53,7 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 </Form.Item>
 
                 <Form.Item label="Event's Time:">
-                <Input onChange={(e)=>setEventTime(()=>e.target.value)}/>
+                <DatePicker onChange={(e)=>handelTime(String(e._d).split('2022')[0])}/>
                 </Form.Item>
 
                 <Form.Item label="Location:">
@@ -59,7 +65,7 @@ const CreateEvent = ({userName, club, backToLoby})=>{
                 </Form.Item>
 
                 <Form.Item label="active:">
-                <Input onChange={(e)=>setEventActive(()=>e.target.value)}/>
+                <Switch defaultChecked onChange={(e)=>setEventActive(()=>e.checked)}/>
                 </Form.Item>
 
                 <Form.Item label="">
