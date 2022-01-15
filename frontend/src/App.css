@@ -54,21 +54,14 @@
     float:right;
     width: 30%;
   }
-  /* .App-inputBar {
-    width: 40%;
-  } */
-
-
-
-  /* .App-messages {
-    width: 100%;
-    height: 300px;
-    background: #eeeeee52;
-    border-radius: 10px;
+  .App-lobyContent div{
     margin: 20px;
-    padding: 20px;
-    overflow: auto;
-  } */
+    float:right;
+    width: 30%;
+  }
+  .App-inputBar {
+    width: 40%;
+  }
   
   .App-options{
     padding-top: 30px;
@@ -81,10 +74,9 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .App-clubInfo{
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
+  .App-info{
+    width: 30%;
+    
   }
 
   .login-option{
