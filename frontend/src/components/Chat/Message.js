@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const MessageWrapper = styled.div`
   width: 75%;
-  height: 50%;
+  height: 600px;
   background: #eeeeee52;
   border-radius: 10px;
   margin: 20px;
   padding: 20px;
-  overflow: auto;
+  overflow: scroll;
 `;
 
 const Message = ({ messages }) => {
