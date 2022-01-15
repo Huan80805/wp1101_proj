@@ -12,7 +12,6 @@ const MessageWrapper = styled.div`
 `;
 
 const Message = ({ messages }) => {
-  console.log(messages)
   return (
     <div className='App-ChatBox'>
       <MessageWrapper >
