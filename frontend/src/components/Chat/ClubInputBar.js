@@ -6,6 +6,12 @@ const ClubInputBar = ({ body,
                     clubName,
                     sendMessage
                 }) => {
+  const send = (msg)=>{
+    if(msg !== ''){
+      sendMessage({variables:{ clubName:clubName, sender: username, body: msg } });
+      setBody('');
+    }
+  }
   return (
     <Input.Search
       className='App-inputBar'
@@ -14,8 +20,7 @@ const ClubInputBar = ({ body,
       enterButton="Send"
       placeholder="Type a message here..."
       onSearch={(msg) => {
-        sendMessage({variables:{ clubName:clubName, sender: username, body: msg } });
-        setBody('');
+        send(msg)
       }}
     ></Input.Search>
   )

@@ -3,8 +3,10 @@ import Message from '../Message';
 import Title from '../Title';
 import EventInfo from '../../events/EventInfo';
 import { useState } from 'react';
-import { CREATE_EVENT_MESSAGE_MUTATION } from '../../../graphql';
+import { CREATE_EVENT_MESSAGE_MUTATION, JOIN_EVENT_MUTATION } from '../../../graphql';
 import { useMutation } from '@apollo/client';
+import { Button } from 'antd';
+
 
 const EventChatRoom = ({ 
                     userName, 
@@ -16,12 +18,26 @@ const EventChatRoom = ({
                     //displayStatus, // useMut
                     //sendMessage, // useMut
                  }) => {
-    const [sendEventMessage, {data, loading, error}]=useMutation(CREATE_EVENT_MESSAGE_MUTATION)
+    const [sendEventMessage]=useMutation(CREATE_EVENT_MESSAGE_MUTATION)
     const [body, setBody] = useState('')
+    const [joinEvent] = useMutation(JOIN_EVENT_MUTATION)
 
+    const join = async ()=>{
+      const {data} = await joinEvent({
+        variables: {
+          name:eventName,
+          clubName:clubName,
+          userName:userName
+      }
+      })
+      alert("Join Event: " + data.joinEvent.status)
+    }
   return (
     <>
-      <Title RoomName={eventName}></Title>
+      <div>
+        <Title RoomName={eventName}></Title>
+        <Button className='JoinEventBt' onClick={join}>Join!</Button>
+      </div>
       <EventInfo  userName={userName} club={clubName} actName={eventName} ></EventInfo>
       <Message messages={messages}></Message>
       <EventInputBar

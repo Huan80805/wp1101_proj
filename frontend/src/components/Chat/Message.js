@@ -3,12 +3,16 @@ import styled from 'styled-components';
 
 const MessageWrapper = styled.div`
   width: 75%;
-  height: 50%;
+  height: 600px;
   background: #eeeeee52;
   border-radius: 10px;
   margin: 20px;
   padding: 20px;
   overflow: auto;
+  vertical-align: middle;
+  overflow-y: scroll;
+  scrollbar-color: rebeccapurple green;
+  scrollbar-width: thin;
 `;
 
 const Message = ({ messages }) => {

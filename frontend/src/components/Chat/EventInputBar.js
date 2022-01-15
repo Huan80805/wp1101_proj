@@ -7,7 +7,12 @@ const EventInputBar = ({ body,
                     sendMessage,
                     eventName
                 }) => {
-
+  const send = (msg)=>{
+    if(msg !== ''){
+      sendMessage({variables:{ clubName:clubName, name:eventName, sender: username, body: msg } });
+      setBody('');
+    }
+  }
   return (
     <Input.Search
       className='App-inputBar'
@@ -16,8 +21,7 @@ const EventInputBar = ({ body,
       enterButton="Send"
       placeholder="Type a message here..."
       onSearch={(msg) => {
-        sendMessage({variables:{ clubName:clubName, name:eventName, sender: username, body: msg } });
-        setBody('');
+        send(msg)
       }}
     ></Input.Search>
   )
