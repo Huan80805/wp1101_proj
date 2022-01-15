@@ -1,8 +1,15 @@
 import React from 'react';
 import 'antd/dist/antd.min.css'
 import '../../App.css'
-
 import { Button, Form, Input, Checkbox } from 'antd';
+import styled from 'styled-components';
+const Wrapper = styled.div`
+  margin: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const LoginPage = ({loginCheck, setUserName, setPassword,
     registerOnClick, forgetOnClick}) =>{
@@ -29,17 +36,17 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
                 </Form.Item>
                 <Form.Item
                     wrapperCol={{
-                    offset: 8,
+                    offset: 6,
                     span: 16,
                     }}
                 >   
-                <div className='App-options'>
+                <Wrapper className='App-options'>
                      <Button type="primary" htmlType="submit" onClick={loginCheck}>
                     Login
                     </Button>
                     <Button onClick={registerOnClick}>Register</Button>
                     <Button onClick={forgetOnClick}>Forget</Button>
-                </div>
+                </Wrapper>
                     
                 </Form.Item>
             </Form>
