@@ -1,6 +1,6 @@
 import { Tag } from 'antd';
 import styled from 'styled-components';
-
+import { Comment } from 'antd';
 const MessageWrapper = styled.div`
   width: 75%;
   height: 350px;
@@ -14,9 +14,9 @@ const MessageWrapper = styled.div`
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
 `;
-const myMsg = styled.div`
-  float: right;
-`
+const generateAvatar = (userName)=>{
+  return 'https://joeschmoe.io/api/v1/random'+userName
+}
 const Message = ({ messages, userName }) => {
   return (
     <div className='App-ChatBox'>
@@ -29,16 +29,21 @@ const Message = ({ messages, userName }) => {
           // todo
           messages.map(({sender, body}, i) => (
             (sender.userName === userName)?
-              
-                <p  key={i} style={{textAlign:"right"}}>
-                  {body+" "}
-                  <Tag color="red">{sender.nickname}</Tag>
-                </p>
+              <p >
+                <Comment
+                    style={{display: 'flex', flexDirection:'row-reverse'}}
+                    author={sender.nickname}
+                    avatar={generateAvatar(sender.nickname)}
+                    content={body}
+                  />
+              </p>
+                
               :
-                (<p  key={i}>
-                  <Tag color="blue">{sender.nickname}</Tag>{body}
-                </p>)
-            
+              <Comment
+                author={sender.nickname}
+                avatar={generateAvatar(sender.nickname)}
+                content={body}
+              />
           ))
         )
       }

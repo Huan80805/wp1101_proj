@@ -1,9 +1,12 @@
+import bcrypt from 'bcryptjs'
 const Query = {
   async user(parent, {userName,password}, { db }, info) {
     //check log in
     const user = await db.UserModel.findOne({userName:userName})
     if (!user) return {status:"USER_NOT_FOUND"}
-    else if (user.password === password) return {status:"SUCCESS", userData: user}
+    const res = await bcrypt.compare(password, user.password)
+    console.log(res)
+    if (res) return {status:"SUCCESS", userData: user}
     return {status: "INVALID_PASSWORD"}
 
   },

@@ -5,7 +5,8 @@ import { Button, Form, Input } from 'antd';
 import { CREATE_USER_MUTATION } from '../../graphql';
 import { useMutation } from '@apollo/client';
 import { notification} from 'antd';
-
+import bcrypt from "bcryptjs"
+const saltRounds = 10
 const Notification = ({type,message}) => {
   notification[type]({
     message: message,
@@ -25,11 +26,11 @@ const RegistPage = ({closeRegistPage}) =>{
     
     const submitOnClick = async (e)=>{
         e.preventDefault();
-        
+        const hash = await bcrypt.hash(password, saltRounds)
         const  {data} = await createUser({
             variables: {
                 userName:userName,
-                password:password,
+                password:hash,
                 nickname:nickname,
                 email: email
             }

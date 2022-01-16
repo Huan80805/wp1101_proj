@@ -20,13 +20,13 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
             </div>
             <div className='App-clubMenu'>
                 {data.updateUser.clubs.length === 0? (
-                <p style={{ color: '#ccc' }}>
+                <p style={{ color: '##0000FF' }}>
                     No Clubs
                 </p>
                 ):(
                     data.updateUser.clubs.map((clubs, i)=>(
                         <p key={i}>
-                            <Button danger onClick={e=>(chooseThisClub(e.target.innerText))}>{clubs}</Button>
+                            <Button type='primary' onClick={e=>(chooseThisClub(e.target.innerText))}>{clubs}</Button>
                         </p>
                     ))
                 )
