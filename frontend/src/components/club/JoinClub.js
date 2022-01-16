@@ -60,7 +60,7 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
                 </p>
                 ):(
                     data.clubs.map((clubs, i)=>(
-                        (!userData.user.userData.clubs.some(club=>club === clubs.name)) &&
+                        (!userData.updateUser.clubs.some(club=>club === clubs.name)) &&
                         <p key={i}>
                             <Button danger  onClick={e=>(chooseThis(e))}>{clubs.name}</Button>
                         </p>

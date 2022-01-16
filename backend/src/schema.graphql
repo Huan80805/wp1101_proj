@@ -11,6 +11,7 @@ type Query {
   #LoginData:{status, user's profile} plz ref LoginData
   #Sign In
   user(userName: String!, password: String!): LoginData!
+  updateUser(userName:String!): User!
   #---------note---------
   #TODO:Privacy of Club member
   #clubs: search all clubs
@@ -105,6 +106,7 @@ type Subscription {
   clubMessage(clubName: String!): CMSubscriptionPayload!
   eventMessage(clubName:String!, name:String!): EMSubscriptionPayload!
   club(name:String!): Club!
+  updateUser(userName:String!): User!
 }
 
 type ClubSubscriptionPayload{

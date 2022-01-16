@@ -12,6 +12,15 @@ export const USER_QUERY = gql`
   }
 `;
 
+export const UPDATE_USER_QUERY = gql`
+  query updateUser($userName: String!) {
+    updateUser(userName:$userName) {
+      userName
+      clubs
+    }
+  }
+`;
+
 export const CLUBS_QUERY = gql`
   query clubs{
     clubs{

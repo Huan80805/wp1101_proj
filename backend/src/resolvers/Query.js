@@ -4,9 +4,13 @@ const Query = {
     const user = await db.UserModel.findOne({userName:userName})
     if (!user) return {status:"USER_NOT_FOUND"}
     else if (user.password === password) return {status:"SUCCESS", userData: user}
-    // TODO: add personal club information
     return {status: "INVALID_PASSWORD"}
 
+  },
+  async updateUser(parent, {userName}, {db}, info){
+    const user = await db.UserModel.findOne({userName:userName})
+    if (!user) return {status:"USER_NOT_FOUND"}
+    return user
   },
   async clubs(parent, args, { db }, info) {
     //query all clubs
