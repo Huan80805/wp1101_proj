@@ -16,8 +16,6 @@ const EventInfo = ({userName, club, actName})=>{
     })
     if (loading) return <Loading/>
     if(error) return <pre>{error.message}</pre>
-    console.log(data.event.members)
-    console.log(data.event.members[0])
     return(
         <div className='App-eventInfo'>
             <Descriptions bordered layout="vertical">

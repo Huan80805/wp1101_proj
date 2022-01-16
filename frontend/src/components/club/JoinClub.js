@@ -49,7 +49,6 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
 
     if(loading) return <Loading/>
     if(error) return <pre>{error.message}</pre>
-    console.log(data.clubs)
 
     return(
         <div className='App'>

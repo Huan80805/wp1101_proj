@@ -5,6 +5,7 @@ import { useLazyQuery } from '@apollo/client';
 import { USER_QUERY } from '../graphql';
 import { notification} from 'antd';
 import Loading from '../components/Loading';
+import  bcrypt  from 'bcryptjs';
 const Notification = ({type,message}) => {
   notification[type]({
     message: message,

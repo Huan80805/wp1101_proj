@@ -1,5 +1,3 @@
-import  mongoose  from "mongoose"
-import { ObjectId } from "mongoose"
 const Mutation = {
   async createUser(parent, {userName, password, nickname, email,}, {db, pubsub}, info){
     const checkUser = await db.UserModel.findOne({userName:userName})
@@ -58,13 +56,14 @@ const Mutation = {
     if (checkClub.invitation === invitation){
       checkClub.members.push({user:checkUser,identity:false})
       checkUser.clubs.push(name)
+      pubsub.publish(`User ${userName}`,{
+        updateUser: checkUser
+      })
+      await checkClub.save()
+      await checkUser.save()
+      return {status: "SUCCESS", clubData: checkClub}
     }
-    pubsub.publish(`User ${userName}`,{
-      updateUser: checkUser
-    })
-    await checkClub.save()
-    await checkUser.save()
-    return {status: "SUCCESS", clubData: checkClub}
+    else return{status:"INVALID_INVITATION"}
   },
   async createEvent(parent, {name, clubName, time, location, introduction, host, active}, {db, pubsub}, info){
     const eventName = clubName + "_" + name
