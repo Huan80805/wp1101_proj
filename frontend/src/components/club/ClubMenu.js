@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
 import { Tag, Button } from 'antd';
-import {HomeOutlined, UsergroupAddOutlined, UserAddOutlined} from '@ant-design/icons'
+import {HomeOutlined, UsergroupAddOutlined,
+     UserAddOutlined, LogoutOutlined} from '@ant-design/icons'
 
 
 const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
-     data, setClub})=>{
+     data, setClub, logOut})=>{
     
     const chooseThisClub = (name) =>{
         setClub(()=>name)
@@ -35,6 +36,7 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
             <div className='App-options'>
                 <Button onClick={estaClubOnClick}>Create Club <UsergroupAddOutlined /></Button>
                 <Button onClick={joinClubOnClick}>Join Club <UserAddOutlined /></Button>
+                <Button onClick={logOut}>Logout <LogoutOutlined />  </Button>
             </div>
         </div>
     )

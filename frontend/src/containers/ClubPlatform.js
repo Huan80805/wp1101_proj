@@ -41,12 +41,10 @@ const ClubPlatform = ({logOut, userName}) =>{
     return(
         <>
             {(club !== '')
-                ? <ClubLoby reChooseClub={reChooseClub} userName={userName} club={club}/>
-                : <ChooseClub setClub={setClub} userName={userName} data={data}/>
+                ? <ClubLoby reChooseClub={reChooseClub} userName={userName} club={club}
+                    />
+                : <ChooseClub setClub={setClub} userName={userName} data={data} logOut={logOut}/>
             }
-            <div >
-                <Button onClick={logOut}>log out</Button>
-            </div>
         </>
         
     )

@@ -5,7 +5,7 @@ import EstablishClub from './EstablishClub';
 import JoinClub from './JoinClub';
 
 
-const ChooseClub = ( {userName, data, setClub})=>{
+const ChooseClub = ( {userName, data, setClub, logOut})=>{
 
     const [establishClub, setEstaClub] = useState(false);
     const [joinClub, setJoinClub] = useState(false);
@@ -27,7 +27,7 @@ const ChooseClub = ( {userName, data, setClub})=>{
             {(!establishClub && !joinClub)&&
                 <ClubMenu userName={userName} estaClubOnClick={estaClubOnClick} 
                 joinClubOnClick={joinClubOnClick} 
-                data={data} setClub={setClub}/>
+                data={data} setClub={setClub} logOut={logOut}/>
             }
             {establishClub &&
                 <EstablishClub backToChooseClub={backToChooseClub} 
