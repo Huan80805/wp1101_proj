@@ -31,7 +31,7 @@
   .App-clubMenu{
     width: 400px;
     height: 40%;
-    overflow-y: scroll;
+    overflow-y: auto;
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;
     margin-left: auto;

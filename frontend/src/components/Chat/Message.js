@@ -29,12 +29,15 @@ const Message = ({ messages, userName }) => {
           // todo
           messages.map(({sender, body}, i) => (
             (sender.userName === userName)?
-              <Comment
-                style={{float:"right"}}
-                author={sender.nickname}
-                avatar={generateAvatar(sender.nickname)}
-                content={body}
-              />
+              <p >
+                <Comment
+                    style={{display: 'flex', flexDirection:'row-reverse'}}
+                    author={sender.nickname}
+                    avatar={generateAvatar(sender.nickname)}
+                    content={body}
+                  />
+              </p>
+                
               :
               <Comment
                 author={sender.nickname}
