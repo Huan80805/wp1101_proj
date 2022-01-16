@@ -11,6 +11,7 @@ const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
         setClub(()=>name)
 
     }
+    console.log(data)
 
     return(
         <div className='App'>

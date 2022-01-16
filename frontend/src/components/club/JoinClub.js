@@ -37,7 +37,9 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
         // go into this club
         if(data.joinClub.status === 'SUCCESS'){
             Notification({type:'success',message:'Directing to Club Lobby'})
+            console.log(data)
             setClub(()=>clubInput)
+
         }
         else Notification({type:"error", message:data.joinClub.status})
         setShowInput(()=>false)
