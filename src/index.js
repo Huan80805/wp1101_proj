@@ -8,14 +8,16 @@ import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
+
+const port = process.env.PORT ;
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: 'http://localhost:5000/'
+  uri: `http://localhost:${port}/`
 })
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:5000/`,
+  uri: `ws://localhost:${port}/`,
   options: { reconnect: true }
 })
 

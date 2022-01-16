@@ -16,8 +16,8 @@ import Subscription from "./backend/src/resolvers/Subscription.js";
 import mongo from "./backend/src/mongo.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const port = process.env.PORT || 80;
-
+const port = process.env.PORT ;
+console.log(port)
 const typeDefs = importSchema("./backend/src/schema.graphql");
 const pubsub = new PubSub();
 const app = express();
