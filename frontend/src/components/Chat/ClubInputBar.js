@@ -14,6 +14,7 @@ const ClubInputBar = ({ body,
   }
   return (
     <Input.Search
+      style={{width:'80%'}}
       className='App-inputBar'
       value={body}
       onChange={(e) => setBody(e.target.value)}
