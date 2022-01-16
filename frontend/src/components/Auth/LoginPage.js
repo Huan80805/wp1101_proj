@@ -19,7 +19,7 @@ const LoginPage = ({loginCheck, setUserName, setPassword,
         <img className='loginPic' alt="not found" src="https://doqvf81n9htmm.cloudfront.net/data/alicelee_126/201801/0123/204.jpg" ></img>
         <div className='App'>
             <div className='App-title'>
-                <h1>Club Meeting Corner</h1>
+                <h1>Wanna Hang Out</h1>
             </div>
             <div className='App-title'>
                 <h2>Login To Start! <ArrowDownOutlined />

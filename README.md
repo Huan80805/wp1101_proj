@@ -6,18 +6,101 @@
  解決當中效率性的問題，就像原本網頁資訊一傳就傳一整包，訊息一放到社團上就是所有人都收到；變成大家使用GraphQL Subscribe特定人或題材的內容，可以即時查看活動資訊、發起邀約的功能，讓人與人的連結多了效率、少了不必要的磨擦。
  
 ## Demo Link:
+https://youtu.be/PxESAjJTIuw
 
 ## Deploy Service:
 Frontend:
 Backend:
 
-## Structure:
-
-## Modules we used:
-
 ## Install and Testing:
-    
-## Members's Duties:
+git clone
+
+### frontend
+cd frontend
+yarn install
+yarn start
+
+### backend
+cd backend
+yarn install
+yarn start
+
+## Functions:
+
+![alt text](demoImg\Login.jpg)
+Login page
+
+![alt text](demoImg\JoinClub.jpg)
+Join Club
+
+![alt text](http://url/to/img.png)
+Choose Club already in
+
+![alt text](demoImg\ClubMenu.jpg)
+Club Loby and Club Chat
+
+![alt text](demoImg\EventInfo.jpg)
+Event Info
+
+![alt text](demoImg\EventChat.jpg)
+Event Chat
+
+## Structure:
+### frontend:
+#### 身分認證
+##### 註冊
+Auth/RegisterPage.js
+##### 登入
+Auth/LoginPage.js
+#### 選擇社團
+##### 選擇已加入社團
+Club/ClubMenu..js
+##### 加入新社團
+Club/JoinClub.js
+##### 建立新社團
+Club/EstablishClub.js
+#### 社團大廳
+##### 聊天室
+Chat/room/ClubChatRoom.js
+Chat/room/
+title.js
+Message.js
+ClubInputBar.js
+##### 社團簡介
+Club/ClubInfo.js
+##### 新增活動
+events/CreateEvent.js
+##### 活動聊天室與活動資訊
+events/EventInfo.js
+Chat/room/EventChatRoom.js
+Chat/
+EventInputBar.js
+EventTitle.js
+#### GraphQL
+index.js
+queries.js
+mutations.js
+subscriptions.js
+### backend:
+index.js
+db.js
+mongo.js
+#### resolvers
+Club.js
+Event.js
+Message.js
+Mutation.js
+Query.js
+Subscription.js
+## Modules we used:
+react
+babel
+nodemon
+bcryptjs
+graphql-yoga
+mongoose
+dotenv-defaults
+
 
 
 
