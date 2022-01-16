@@ -46,7 +46,7 @@ server.applyMiddleware({ app });
 const httpServer = http.createServer(app);
 server.installSubscriptionHandlers(httpServer);
 
-mongo.connect();
+mongo();
 
 httpServer.listen(port, () => {
   console.log(`🚀 Server Ready at ${port}! 🚀`);

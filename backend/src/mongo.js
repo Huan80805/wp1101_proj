@@ -1,7 +1,7 @@
 // define connection with mongo
 import mongoose from 'mongoose';
 import dotenv from "dotenv-defaults";
-export default () => {
+export default () =>{
     dotenv.config()
     if (!process.env.MONGO_URL){
         console.error("Missing MONGO_URL!!!")
@@ -10,7 +10,6 @@ export default () => {
     mongoose.connect(process.env.MONGO_URL,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
     })
     const db = mongoose.connection;
     db.on("error", (error) =>{
