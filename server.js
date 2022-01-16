@@ -13,6 +13,9 @@ import db from "./backend/src/db.js";
 import Query from "./backend/src/resolvers/Query.js";
 import Mutation from "./backend/src/resolvers/Mutation.js";
 import Subscription from "./backend/src/resolvers/Subscription.js";
+import Club from "./backend/src/resolvers/Club.js";
+import Event from "./backend/src/resolvers/Event.js";
+import Message from "./src/components/Chat/Message.js";
 import mongo from "./backend/src/mongo.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -29,12 +32,16 @@ app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
+
 const server = new ApolloServer({
   typeDefs,
   resolvers: {
     Query,
     Mutation,
     Subscription,
+    Club,
+    Event,
+    Message,
   },
   context: {
     db,
