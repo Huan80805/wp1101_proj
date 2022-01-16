@@ -44,5 +44,6 @@ const UserModel = mongoose.model("User", UserSchema);
 const ClubModel = mongoose.model("Club", ClubSchema);
 const EventModel = mongoose.model("Event", EventSchema)
 const MessageModel = mongoose.model("Message", MessageSchema)
-export {UserModel, ClubModel, EventModel, MessageModel}
+const db = {UserModel, ClubModel, EventModel, MessageModel}
+export default db
 
