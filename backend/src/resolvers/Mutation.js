@@ -35,7 +35,7 @@ const Mutation = {
     initialUser.clubs.push(name)
     await newClub.save()
     await initialUser.save()
-    pubsub.publish(`User ${userName}`,{
+    pubsub.publish(`User ${host}`,{
       updateUser: initialUser
     })
     console.log("club created: ",name)

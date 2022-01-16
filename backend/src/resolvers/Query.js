@@ -9,7 +9,6 @@ const Query = {
   },
   async updateUser(parent, {userName}, {db}, info){
     const user = await db.UserModel.findOne({userName:userName})
-    if (!user) return {status:"USER_NOT_FOUND"}
     return user
   },
   async clubs(parent, args, { db }, info) {

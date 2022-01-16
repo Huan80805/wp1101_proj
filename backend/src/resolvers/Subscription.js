@@ -14,13 +14,13 @@ const Subscription = {
   club:{
     subscribe(parent, {name}, { db, pubsub }, info) {
       return pubsub.asyncIterator(`Club ${name}`);
+    },
   },
   updateUser:{
-    subscribe(parent, {userName}, {db, pubsub}, info){
-      return pubsub.asyncIterator(`User ${userName}`)
-    }
-  }
-  }
+    subscribe(parent, {userName}, { db, pubsub }, info) {
+      return pubsub.asyncIterator(`User ${userName}`);
+    },
+  },
 };
 export { Subscription as default };
 
