@@ -27,78 +27,76 @@ yarn start
 
 ## Functions:
 
-![alt text](demoImg\Login.jpg)
+![alt text](demoImg\Login.jpg?raw=true "login")
 Login page
 
-![alt text](demoImg\JoinClub.jpg)
+![alt text](demoImg\JoinClub.jpg?raw=true "Join")
 Join Club
 
-![alt text](http://url/to/img.png)
+![alt text](http://url/to/img.png?raw=true "CHoose")
 Choose Club already in
 
-![alt text](demoImg\ClubMenu.jpg)
+![alt text](demoImg\ClubMenu.jpg?raw=true "Loby")
 Club Loby and Club Chat
 
-![alt text](demoImg\EventInfo.jpg)
+![alt text](demoImg\EventInfo.jpg?raw=true "Event")
 Event Info
 
-![alt text](demoImg\EventChat.jpg)
+![alt text](demoImg\EventChat.jpg?raw=true "Eventchat")
 Event Chat
 
 ## Structure:
 ### frontend:
 #### 身分認證
 ##### 註冊
-Auth/RegisterPage.js
+RegisterPage.js
 ##### 登入
-Auth/LoginPage.js
+LoginPage.js
 #### 選擇社團
 ##### 選擇已加入社團
-Club/ClubMenu..js
+ClubMenu..js
 ##### 加入新社團
-Club/JoinClub.js
+JoinClub.js
 ##### 建立新社團
-Club/EstablishClub.js
+EstablishClub.js
 #### 社團大廳
 ##### 聊天室
-Chat/room/ClubChatRoom.js
-Chat/room/
-title.js
-Message.js
-ClubInputBar.js
+ClubChatRoom.js, 
+title.js, 
+Message.js, 
+ClubInputBar.js, 
 ##### 社團簡介
-Club/ClubInfo.js
+ClubInfo.js
 ##### 新增活動
-events/CreateEvent.js
+CreateEvent.js
 ##### 活動聊天室與活動資訊
-events/EventInfo.js
-Chat/room/EventChatRoom.js
-Chat/
-EventInputBar.js
+EventInfo.js, 
+EventChatRoom.js, 
+EventInputBar.js, 
 EventTitle.js
 #### GraphQL
-index.js
-queries.js
-mutations.js
-subscriptions.js
+index.js, 
+queries.js, 
+mutations.js, 
+subscriptions.js 
 ### backend:
-index.js
-db.js
-mongo.js
+index.js, 
+db.js, 
+mongo.js, 
 #### resolvers
-Club.js
-Event.js
-Message.js
-Mutation.js
-Query.js
+Club.js, 
+Event.js, 
+Message.js, 
+Mutation.js, 
+Query.js,
 Subscription.js
 ## Modules we used:
-react
-babel
-nodemon
-bcryptjs
-graphql-yoga
-mongoose
+react, 
+babel, 
+nodemon, 
+bcryptjs, 
+graphql-yoga, 
+mongoose, 
 dotenv-defaults
 
 
