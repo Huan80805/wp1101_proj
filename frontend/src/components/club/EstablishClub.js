@@ -5,6 +5,8 @@ import {CREATE_CLUB_MUTATION} from '../../graphql';
 import { useMutation } from '@apollo/client';
 import { notification} from 'antd';
 import Loading from '../Loading';
+import {UsergroupAddOutlined, HomeOutlined} from '@ant-design/icons'
+
 const Notification = ({type,message}) => {
   notification[type]({
     message: message,
@@ -46,7 +48,7 @@ const EstablishClub = ({backToChooseClub, setClub, userName})=>{
     return(
         <div className='App'>
             <div className='App-title'>
-                    <h1 >Establish Club</h1>
+                    <h1 >Create Club <UsergroupAddOutlined /></h1>
             </div>
             <Form>
                 <Form.Item label="Club's Name:">
@@ -67,10 +69,10 @@ const EstablishClub = ({backToChooseClub, setClub, userName})=>{
 
                 <Form.Item label="">
                 <Button type="primary" htmlType="submit" onClick={createClubSubmit}>
-                    create club
+                    Create Club <UsergroupAddOutlined />
                 </Button>
                 <Button  htmlType="submit" onClick={backToChooseClub}>
-                    back
+                    Back <HomeOutlined/>
                 </Button>
                 </Form.Item>
             </Form>

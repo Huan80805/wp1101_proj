@@ -16,9 +16,8 @@
     width: 500px;
     margin: auto;
   }
-  .JoinEventBt{
-    display: inline;
-  }
+  
+  
   .App-eventInfo{
     margin: 20px;
     width: 80%;
@@ -29,10 +28,12 @@
     margin-left: auto;
     margin-right: auto;
   }
-
+  .my-msg{
+    float: right;
+  }
   .App-clubMenu{
     width: 400px;
-    height: 60%;
+    height: 40%;
     overflow-y: scroll;
     scrollbar-color: rebeccapurple green;
     scrollbar-width: thin;

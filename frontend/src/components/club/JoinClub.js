@@ -6,6 +6,8 @@ import { useQuery, useMutation } from '@apollo/client';
 import { UserOutlined } from '@ant-design/icons';
 import Loading from '../Loading';
 import { notification} from 'antd';
+import {UserAddOutlined, HomeOutlined, LockOutlined} from '@ant-design/icons'
+
 
 const Notification = ({type,message}) => {
   notification[type]({
@@ -47,13 +49,14 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
 
     if(loading) return <Loading/>
     if(error) return <pre>{error.message}</pre>
+    console.log(data.clubs)
 
     return(
         <div className='App'>
             <div className='App-title'>
-                <h1 >JoinClub</h1>
+                <h1 >Join Club <UserAddOutlined /></h1>
             </div>
-            <div className='App-menu'>
+            <div className='App-clubMenu'>
                 {data.clubs.length === 0? (
                 <p style={{ color: '#ccc' }}>
                     No Clubs...
@@ -68,23 +71,24 @@ const JoinClub = ({backToChooseClub, setClub, userName, userData})=>{
                 )
             }
             </div>
-            <div className='App-joinClub'>
-                {showInvitInput &&
-                <div>
-                    <Input
-                    placeholder="Plz enter your invit code:"
-                    prefix={<UserOutlined className="site-form-item-icon" />}
-                    onChange={(e)=>{setInvitInput(()=>e.target.value)}}
-                    />
-                    <Button onClick={sendInvitCode}>Join {clubInput}!</Button>
-                </div>
-                
+            <div className='App-options'>
+                <Button onClick={backToChooseClub}>Back <HomeOutlined/></Button>
+                {showInvitInput && (
+                    <>
+                    <Button type="primary" onClick={sendInvitCode}>Join {clubInput}!</Button>
+                    <div className='joinClubInput'>
+                        <Input
+                        placeholder="Plz Enter Your Invit Code:"
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        onChange={(e)=>{setInvitInput(()=>e.target.value)}}
+                        /> 
+                    </div>
+                    </>
+                      
+                )
                 }
             </div>
             
-            <div className='App-options'>
-                <Button onClick={backToChooseClub}>backToChooseClub</Button>
-            </div>
         </div>
     )
 }

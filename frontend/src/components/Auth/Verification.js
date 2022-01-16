@@ -9,7 +9,7 @@ const Verification = ({sendOnClick, verifyOnClick, sendClose, isSend}) =>{
     return(
         <div className='App'>
             <div className='App-title'>
-                <h1 >Find Your PassWord</h1>
+                <h1 >Find Your PassWord (Unfinished)</h1>
             </div>
             <Form>
                 <Form.Item label="Username">
