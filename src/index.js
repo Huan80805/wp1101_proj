@@ -7,19 +7,20 @@ import {
 import { split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-
-
-const port = process.env.PORT ;
+import dotenv from "dotenv-defaults";
+const url = new URL("/graphql", window.location.href);
 // Create an http link:
 const httpLink = new HttpLink({
-  uri: `http://localhost:${port}/`
-})
+  // uri: 'http://localhost:5000/graphql',
+  uri: url.href,
+});
 
 // Create a WebSocket link:
 const wsLink = new WebSocketLink({
-  uri: `ws://localhost:${port}/`,
-  options: { reconnect: true }
-})
+  // uri: `ws://localhost:5000/graphql`,
+  uri: url.href.replace("http", "ws"),
+  options: { reconnect: true },
+});
 
 const link = split(
   // split based on operation type
