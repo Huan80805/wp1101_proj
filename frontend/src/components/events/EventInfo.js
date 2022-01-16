@@ -1,6 +1,7 @@
 import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
-import { Button, Descriptions, Tag } from 'antd';
+import { Button, Descriptions, Tag} from 'antd';
+import {CheckCircleTwoTone, CloseCircleTwoTone} from '@ant-design/icons';
 import { EVENT_QUERY } from '../../graphql/queries';
 import { useQuery } from '@apollo/client';
 import Loading from '../Loading';
@@ -26,8 +27,13 @@ const EventInfo = ({userName, club, actName})=>{
                 <Descriptions.Item label="Host">{data.event.host}</Descriptions.Item>
                 <Descriptions.Item label="Members">
                     {data.event.members.map( member => 
-                        {return member.user.userName + " "}
+                        {return <Tag>{member.user.userName + " "}</Tag>}
                     )}
+                </Descriptions.Item>
+                <Descriptions.Item label="Active">
+                    {data.event.active?
+                    (<CheckCircleTwoTone twoToneColor="#52c41a"/>):
+                    (<CloseCircleTwoTone two twoToneColor='red-5'/>)}
                 </Descriptions.Item>
                   
             </Descriptions>

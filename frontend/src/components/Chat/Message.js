@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const MessageWrapper = styled.div`
   width: 75%;
-  height: 600px;
+  height: 350px;
   background: #eeeeee52;
   border-radius: 10px;
   margin: 20px;
@@ -14,7 +14,9 @@ const MessageWrapper = styled.div`
   scrollbar-color: rebeccapurple green;
   scrollbar-width: thin;
 `;
-
+const myMsg = styled.div`
+  float: right;
+`
 const Message = ({ messages, userName }) => {
   return (
     <div className='App-ChatBox'>
@@ -27,10 +29,13 @@ const Message = ({ messages, userName }) => {
           // todo
           messages.map(({sender, body}, i) => (
             (sender.userName === userName)?
-              (<p className="App-message" className='my-msg' key={i}>
-                <Tag color="red">{sender.nickname}</Tag>{body}
-              </p>)
-              :(<p className="App-message" key={i}>
+              
+                <p  key={i} style={{textAlign:"right"}}>
+                  {body+" "}
+                  <Tag color="red">{sender.nickname}</Tag>
+                </p>
+              :
+                (<p  key={i}>
                   <Tag color="blue">{sender.nickname}</Tag>{body}
                 </p>)
             

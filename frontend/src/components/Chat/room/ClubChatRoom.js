@@ -21,7 +21,7 @@ const ClubChatRoom = ({
     <div >
       <Title RoomName={clubName}></Title>
       <Message messages={messages} userName ={userName} ></Message>
-      <ClubInputBar 
+      <ClubInputBar
         body={body}
         setBody={setBody}
         username={userName}

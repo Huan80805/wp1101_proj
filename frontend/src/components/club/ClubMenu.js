@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import 'antd/dist/antd.min.css'
 import { Tag, Button } from 'antd';
 import {ReadOutlined, UsergroupAddOutlined, UserAddOutlined} from '@ant-design/icons'
-
+import background from "./chat.jpg"
 
 const ClubMenu = ({estaClubOnClick, userName, joinClubOnClick,
      data, setClub})=>{
