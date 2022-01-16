@@ -8,8 +8,8 @@ import { useQuery } from '@apollo/client';
 import { CLUB_QUERY } from '../graphql';
 import { Button, Menu} from 'antd';
 import Loading from '../components/Loading';
-import { AppstoreAddOutlined, CommentOutlined, ContainerOutlined, ReadOutlined} from '@ant-design/icons'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
+import { AppstoreAddOutlined, CommentOutlined, ProfileOutlined, ReadOutlined} from '@ant-design/icons'
+import { AppstoreOutlined, HomeOutlined} from '@ant-design/icons';
 import EventChatRoom from '../components/Chat/room/EventChatRoom';
 import styled from 'styled-components';
 import { useEffect } from 'react';
@@ -111,10 +111,10 @@ const ClubLoby = ({reChooseClub, club, userName})=>{
                             <AppstoreAddOutlined /> Create Event
                         </Menu.Item>
                         <Menu.Item key="ClubInfo" onClick={showClubInfo}>
-                            <ContainerOutlined /> Club Info
+                            <ProfileOutlined /> Club Info
                         </Menu.Item>
                         <Menu.Item key="Go_back_club" onClick={reChooseClub}>
-                            <ReadOutlined /> back to Menu
+                            <HomeOutlined /> back to Menu
                         </Menu.Item>
                 </Menu>
             </div >

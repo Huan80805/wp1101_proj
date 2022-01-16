@@ -12,4 +12,4 @@
 
 # meet time
 
-# JOIN CLUB / MESSAGE / MEMBER
+# JOIN CLUB / MESSAGE / MEMBER / no event

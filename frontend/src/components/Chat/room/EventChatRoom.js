@@ -1,6 +1,6 @@
 import EventInputBar from '../EventInputBar'
 import Message from '../Message';
-import Title from '../Title';
+import EventTitle from '../EventTitle';
 import EventInfo from '../../events/EventInfo';
 import { useState } from 'react';
 import { CREATE_EVENT_MESSAGE_MUTATION, JOIN_EVENT_MUTATION } from '../../../graphql';
@@ -44,10 +44,7 @@ const EventChatRoom = ({
     }
   return (
     <>
-      <div>
-        <Title RoomName={eventName}></Title>
-        <Button className='JoinEventBt' onClick={join}>Join!</Button>
-      </div>
+      <EventTitle RoomName={eventName} join={join}/>
       <EventInfo  userName={userName} club={clubName} actName={eventName} ></EventInfo>
       <Message messages={messages} userName={userName} ></Message>
       <EventInputBar

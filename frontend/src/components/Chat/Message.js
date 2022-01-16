@@ -27,10 +27,12 @@ const Message = ({ messages, userName }) => {
           // todo
           messages.map(({sender, body}, i) => (
             (sender.userName === userName)?
-              <h1>Me</h1>
-              :<p className="App-message" key={i}>
+              (<p className="App-message" className='my-msg' key={i}>
+                <Tag color="red">{sender.nickname}</Tag>{body}
+              </p>)
+              :(<p className="App-message" key={i}>
                   <Tag color="blue">{sender.nickname}</Tag>{body}
-                </p>
+                </p>)
             
           ))
         )

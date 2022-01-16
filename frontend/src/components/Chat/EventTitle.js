@@ -10,14 +10,18 @@ const TitleWrapper = styled.div`
     margin: 20px;
     font-size: 3em;
   }
+  button{
+    margin-top:43px
+  }
 `;
 
-const Title = ({RoomName}) => { // name for clubName or eventName
+const EventTitle = ({RoomName, join}) => { // name for clubName or eventName
   return (
     <TitleWrapper>
       <h1>{RoomName}</h1>
+      <Button type="primary" onClick={join}>Join!</Button>
     </TitleWrapper>
   );
 };
 
-export default Title;
+export default EventTitle;
