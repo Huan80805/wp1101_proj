@@ -8,7 +8,7 @@ A lightweight club & event management web application that streamlines how unive
 * **Event‑centric chat** – Each event has its own channel, so conversations stay focused and never drown in group noise.
 * **Role‑based access** – Secure JWT authentication with bcrypt‑hashed passwords.
 * **One‑click RSVPs** – Subscribe or unsubscribe to events instantly; automatic reminders coming soon.
-* **CI/CD** – GitHub Actions deploy the front‑end & back‑end to Heroku on every push.
+* **CI/CD** – GitHub Actions deploy the front‑end & back‑end to Heroku on every push. (hidden on demo)
 
 ## Live Demo
 
